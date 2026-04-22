@@ -1,0 +1,6288 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "5",
+  "dialect": "mysql",
+  "tables": {
+    "__efmigrationshistory": {
+      "name": "__efmigrationshistory",
+      "columns": {
+        "MigrationId": {
+          "autoincrement": false,
+          "name": "MigrationId",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ProductVersion": {
+          "autoincrement": false,
+          "name": "ProductVersion",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "__efmigrationshistory_MigrationId": {
+          "name": "__efmigrationshistory_MigrationId",
+          "columns": [
+            "MigrationId"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "aspnetroleclaims": {
+      "name": "aspnetroleclaims",
+      "columns": {
+        "Id": {
+          "autoincrement": true,
+          "name": "Id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "RoleId": {
+          "autoincrement": false,
+          "name": "RoleId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ClaimType": {
+          "autoincrement": false,
+          "name": "ClaimType",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ClaimValue": {
+          "autoincrement": false,
+          "name": "ClaimValue",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "aspnetroleclaims_Id": {
+          "name": "aspnetroleclaims_Id",
+          "columns": [
+            "Id"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "FK_AspNetRoleClaims_AspNetRoles_RoleId": {
+          "name": "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+          "tableFrom": "aspnetroleclaims",
+          "tableTo": "aspnetroles",
+          "columnsFrom": [
+            "RoleId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "aspnetroles": {
+      "name": "aspnetroles",
+      "columns": {
+        "Id": {
+          "autoincrement": false,
+          "name": "Id",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Name": {
+          "autoincrement": false,
+          "name": "Name",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "NormalizedName": {
+          "autoincrement": false,
+          "name": "NormalizedName",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ConcurrencyStamp": {
+          "autoincrement": false,
+          "name": "ConcurrencyStamp",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "aspnetroles_Id": {
+          "name": "aspnetroles_Id",
+          "columns": [
+            "Id"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_AspNetRoles_TenantID": {
+          "name": "IX_AspNetRoles_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_AspNetRoles_Tenants": {
+          "name": "FK_AspNetRoles_Tenants",
+          "tableFrom": "aspnetroles",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "aspnetuserclaims": {
+      "name": "aspnetuserclaims",
+      "columns": {
+        "Id": {
+          "autoincrement": true,
+          "name": "Id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "UserId": {
+          "autoincrement": false,
+          "name": "UserId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ClaimType": {
+          "autoincrement": false,
+          "name": "ClaimType",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ClaimValue": {
+          "autoincrement": false,
+          "name": "ClaimValue",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "aspnetuserclaims_Id": {
+          "name": "aspnetuserclaims_Id",
+          "columns": [
+            "Id"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "FK_AspNetUserClaims_AspNetUsers_UserId": {
+          "name": "FK_AspNetUserClaims_AspNetUsers_UserId",
+          "tableFrom": "aspnetuserclaims",
+          "tableTo": "aspnetusers",
+          "columnsFrom": [
+            "UserId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "aspnetuserlogins": {
+      "name": "aspnetuserlogins",
+      "columns": {
+        "LoginProvider": {
+          "autoincrement": false,
+          "name": "LoginProvider",
+          "type": "varchar(128)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ProviderKey": {
+          "autoincrement": false,
+          "name": "ProviderKey",
+          "type": "varchar(128)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ProviderDisplayName": {
+          "autoincrement": false,
+          "name": "ProviderDisplayName",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "UserId": {
+          "autoincrement": false,
+          "name": "UserId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "aspnetuserlogins_LoginProvider_ProviderKey": {
+          "name": "aspnetuserlogins_LoginProvider_ProviderKey",
+          "columns": [
+            "LoginProvider",
+            "ProviderKey"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "FK_AspNetUserLogins_AspNetUsers_UserId": {
+          "name": "FK_AspNetUserLogins_AspNetUsers_UserId",
+          "tableFrom": "aspnetuserlogins",
+          "tableTo": "aspnetusers",
+          "columnsFrom": [
+            "UserId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "aspnetuserroles": {
+      "name": "aspnetuserroles",
+      "columns": {
+        "UserId": {
+          "autoincrement": false,
+          "name": "UserId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "RoleId": {
+          "autoincrement": false,
+          "name": "RoleId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "aspnetuserroles_UserId_RoleId": {
+          "name": "aspnetuserroles_UserId_RoleId",
+          "columns": [
+            "UserId",
+            "RoleId"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "FK_AspNetUserRoles_AspNetRoles_RoleId": {
+          "name": "FK_AspNetUserRoles_AspNetRoles_RoleId",
+          "tableFrom": "aspnetuserroles",
+          "tableTo": "aspnetroles",
+          "columnsFrom": [
+            "RoleId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "FK_AspNetUserRoles_AspNetUsers_UserId": {
+          "name": "FK_AspNetUserRoles_AspNetUsers_UserId",
+          "tableFrom": "aspnetuserroles",
+          "tableTo": "aspnetusers",
+          "columnsFrom": [
+            "UserId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "aspnetusers": {
+      "name": "aspnetusers",
+      "columns": {
+        "Id": {
+          "autoincrement": false,
+          "name": "Id",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "UserName": {
+          "autoincrement": false,
+          "name": "UserName",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "NormalizedUserName": {
+          "autoincrement": false,
+          "name": "NormalizedUserName",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Email": {
+          "autoincrement": false,
+          "name": "Email",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "NormalizedEmail": {
+          "autoincrement": false,
+          "name": "NormalizedEmail",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "EmailConfirmed": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "EmailConfirmed",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "PasswordHash": {
+          "autoincrement": false,
+          "name": "PasswordHash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "SecurityStamp": {
+          "autoincrement": false,
+          "name": "SecurityStamp",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ConcurrencyStamp": {
+          "autoincrement": false,
+          "name": "ConcurrencyStamp",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "PhoneNumber": {
+          "autoincrement": false,
+          "name": "PhoneNumber",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "PhoneNumberConfirmed": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "PhoneNumberConfirmed",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TwoFactorEnabled": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "TwoFactorEnabled",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LockoutEnd": {
+          "autoincrement": false,
+          "name": "LockoutEnd",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "LockoutEnabled": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "LockoutEnabled",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "AccessFailedCount": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "AccessFailedCount",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FirstName": {
+          "autoincrement": false,
+          "name": "FirstName",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "LastName": {
+          "autoincrement": false,
+          "name": "LastName",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "AvatarURL": {
+          "autoincrement": false,
+          "name": "AvatarURL",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "IsActive": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "IsActive",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CreatedAT": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "CreatedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "aspnetusers_Id": {
+          "name": "aspnetusers_Id",
+          "columns": [
+            "Id"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_AspNetUsers_TenantID": {
+          "name": "IX_AspNetUsers_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        },
+        "IX_AspNetUsers_Email": {
+          "name": "IX_AspNetUsers_Email",
+          "columns": [
+            "Email"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_AspNetUsers_Tenants": {
+          "name": "FK_AspNetUsers_Tenants",
+          "tableFrom": "aspnetusers",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "aspnetusertokens": {
+      "name": "aspnetusertokens",
+      "columns": {
+        "UserId": {
+          "autoincrement": false,
+          "name": "UserId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LoginProvider": {
+          "autoincrement": false,
+          "name": "LoginProvider",
+          "type": "varchar(128)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Name": {
+          "autoincrement": false,
+          "name": "Name",
+          "type": "varchar(128)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Value": {
+          "autoincrement": false,
+          "name": "Value",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "aspnetusertokens_UserId_LoginProvider_Name": {
+          "name": "aspnetusertokens_UserId_LoginProvider_Name",
+          "columns": [
+            "UserId",
+            "LoginProvider",
+            "Name"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "FK_AspNetUserTokens_AspNetUsers_UserId": {
+          "name": "FK_AspNetUserTokens_AspNetUsers_UserId",
+          "tableFrom": "aspnetusertokens",
+          "tableTo": "aspnetusers",
+          "columnsFrom": [
+            "UserId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "assettype": {
+      "name": "assettype",
+      "columns": {
+        "AssetTypeID": {
+          "autoincrement": true,
+          "name": "AssetTypeID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "assettype_AssetTypeID": {
+          "name": "assettype_AssetTypeID",
+          "columns": [
+            "AssetTypeID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_AssetType_TenantID": {
+          "name": "IX_AssetType_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_AssetType_Tenants": {
+          "name": "FK_AssetType_Tenants",
+          "tableFrom": "assettype",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "auditlog": {
+      "name": "auditlog",
+      "columns": {
+        "AuditLogID": {
+          "autoincrement": true,
+          "name": "AuditLogID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Section": {
+          "autoincrement": false,
+          "name": "Section",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "User": {
+          "autoincrement": false,
+          "name": "User",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "EventDateUTC": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "EventDateUTC",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Event": {
+          "autoincrement": false,
+          "name": "Event",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TableName": {
+          "autoincrement": false,
+          "name": "TableName",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "RecordID": {
+          "autoincrement": false,
+          "name": "RecordID",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ColumnName": {
+          "autoincrement": false,
+          "name": "ColumnName",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "OriginalValue": {
+          "autoincrement": false,
+          "name": "OriginalValue",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "NewValue": {
+          "autoincrement": false,
+          "name": "NewValue",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "auditlog_AuditLogID": {
+          "name": "auditlog_AuditLogID",
+          "columns": [
+            "AuditLogID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_AuditLog_TenantID": {
+          "name": "IX_AuditLog_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        },
+        "IX_AuditLog_TenantID_TableName": {
+          "name": "IX_AuditLog_TenantID_TableName",
+          "columns": [
+            "TenantID",
+            "TableName"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_AuditLog_Tenants": {
+          "name": "FK_AuditLog_Tenants",
+          "tableFrom": "auditlog",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "calllogs": {
+      "name": "calllogs",
+      "columns": {
+        "CallLogID": {
+          "autoincrement": true,
+          "name": "CallLogID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "UserName": {
+          "autoincrement": false,
+          "name": "UserName",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "InComming": {
+          "autoincrement": false,
+          "name": "InComming",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "LoggedAt": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "LoggedAt",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CallType": {
+          "autoincrement": false,
+          "name": "CallType",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "CalledAt": {
+          "autoincrement": false,
+          "name": "CalledAt",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Durration": {
+          "default": "'0.00'",
+          "autoincrement": false,
+          "name": "Durration",
+          "type": "decimal(18,2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "PhoneIMEI": {
+          "autoincrement": false,
+          "name": "PhoneIMEI",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "SecurityToken": {
+          "autoincrement": false,
+          "name": "SecurityToken",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Sim1IMEI": {
+          "autoincrement": false,
+          "name": "Sim1IMEI",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Sim1Name": {
+          "autoincrement": false,
+          "name": "Sim1Name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Sim2IMEI": {
+          "autoincrement": false,
+          "name": "Sim2IMEI",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Sim2Name": {
+          "autoincrement": false,
+          "name": "Sim2Name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "InCommingOn": {
+          "autoincrement": false,
+          "name": "InCommingOn",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "calllogs_CallLogID": {
+          "name": "calllogs_CallLogID",
+          "columns": [
+            "CallLogID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_CallLogs_TenantID": {
+          "name": "IX_CallLogs_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_CallLogs_Tenants": {
+          "name": "FK_CallLogs_Tenants",
+          "tableFrom": "calllogs",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "communicationtypes": {
+      "name": "communicationtypes",
+      "columns": {
+        "CommunicationTypeID": {
+          "autoincrement": true,
+          "name": "CommunicationTypeID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "IsActive": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "IsActive",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "communicationtypes_CommunicationTypeID": {
+          "name": "communicationtypes_CommunicationTypeID",
+          "columns": [
+            "CommunicationTypeID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_CommunicationTypes_TenantID": {
+          "name": "IX_CommunicationTypes_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_CommunicationTypes_Tenants": {
+          "name": "FK_CommunicationTypes_Tenants",
+          "tableFrom": "communicationtypes",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "contacttypes": {
+      "name": "contacttypes",
+      "columns": {
+        "ContactTypeID": {
+          "autoincrement": true,
+          "name": "ContactTypeID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "IsActive": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "IsActive",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "contacttypes_ContactTypeID": {
+          "name": "contacttypes_ContactTypeID",
+          "columns": [
+            "ContactTypeID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_ContactTypes_TenantID": {
+          "name": "IX_ContactTypes_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_ContactTypes_Tenants": {
+          "name": "FK_ContactTypes_Tenants",
+          "tableFrom": "contacttypes",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "crmpermissions": {
+      "name": "crmpermissions",
+      "columns": {
+        "PermissionID": {
+          "autoincrement": true,
+          "name": "PermissionID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "RoleId": {
+          "autoincrement": false,
+          "name": "RoleId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Module": {
+          "autoincrement": false,
+          "name": "Module",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CanView": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "CanView",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CanCreate": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "CanCreate",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CanEdit": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "CanEdit",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CanDelete": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "CanDelete",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CanExport": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "CanExport",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CanAssign": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "CanAssign",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "crmpermissions_PermissionID": {
+          "name": "crmpermissions_PermissionID",
+          "columns": [
+            "PermissionID"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "FK_CrmPermissions_Roles": {
+          "name": "FK_CrmPermissions_Roles",
+          "tableFrom": "crmpermissions",
+          "tableTo": "aspnetroles",
+          "columnsFrom": [
+            "RoleId"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "FK_CrmPermissions_Tenants": {
+          "name": "FK_CrmPermissions_Tenants",
+          "tableFrom": "crmpermissions",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {
+        "UQ_CrmPermissions_Role_Module": {
+          "name": "UQ_CrmPermissions_Role_Module",
+          "columns": [
+            "TenantID",
+            "RoleId",
+            "Module"
+          ]
+        }
+      },
+      "checkConstraint": {}
+    },
+    "dashboardleadsummary": {
+      "name": "dashboardleadsummary",
+      "columns": {
+        "ID": {
+          "autoincrement": true,
+          "name": "ID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "StaffID": {
+          "autoincrement": false,
+          "name": "StaffID",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Staff": {
+          "autoincrement": false,
+          "name": "Staff",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "LeadDate": {
+          "autoincrement": false,
+          "name": "LeadDate",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TotalLeads": {
+          "autoincrement": false,
+          "name": "TotalLeads",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TotalAttendedLeads": {
+          "autoincrement": false,
+          "name": "TotalAttendedLeads",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TotalUnAttendedLeads": {
+          "autoincrement": false,
+          "name": "TotalUnAttendedLeads",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FollowUps": {
+          "autoincrement": false,
+          "name": "FollowUps",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NextFollowUps": {
+          "autoincrement": false,
+          "name": "NextFollowUps",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Leads": {
+          "autoincrement": false,
+          "name": "Leads",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "AttendedLeads": {
+          "autoincrement": false,
+          "name": "AttendedLeads",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "UnAttendedLeads": {
+          "autoincrement": false,
+          "name": "UnAttendedLeads",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Year": {
+          "autoincrement": false,
+          "name": "Year",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Month": {
+          "autoincrement": false,
+          "name": "Month",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Day": {
+          "autoincrement": false,
+          "name": "Day",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "minDate": {
+          "autoincrement": false,
+          "name": "minDate",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "maxDate": {
+          "autoincrement": false,
+          "name": "maxDate",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "dashboardleadsummary_ID": {
+          "name": "dashboardleadsummary_ID",
+          "columns": [
+            "ID"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "datedimension": {
+      "name": "datedimension",
+      "columns": {
+        "DateDimensionID": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "DateDimensionID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DateKey": {
+          "autoincrement": false,
+          "name": "DateKey",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Date": {
+          "autoincrement": false,
+          "name": "Date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Day": {
+          "autoincrement": false,
+          "name": "Day",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DaySuffix": {
+          "autoincrement": false,
+          "name": "DaySuffix",
+          "type": "char(2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Weekday": {
+          "autoincrement": false,
+          "name": "Weekday",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "WeekDayName": {
+          "autoincrement": false,
+          "name": "WeekDayName",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "IsWeekend": {
+          "autoincrement": false,
+          "name": "IsWeekend",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "IsHoliday": {
+          "autoincrement": false,
+          "name": "IsHoliday",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "HolidayText": {
+          "autoincrement": false,
+          "name": "HolidayText",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "DOWInMonth": {
+          "autoincrement": false,
+          "name": "DOWInMonth",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "DayOfYear": {
+          "autoincrement": false,
+          "name": "DayOfYear",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "WeekOfMonth": {
+          "autoincrement": false,
+          "name": "WeekOfMonth",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "WeekOfYear": {
+          "autoincrement": false,
+          "name": "WeekOfYear",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ISOWeekOfYear": {
+          "autoincrement": false,
+          "name": "ISOWeekOfYear",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Month": {
+          "autoincrement": false,
+          "name": "Month",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "MonthName": {
+          "autoincrement": false,
+          "name": "MonthName",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Quarter": {
+          "autoincrement": false,
+          "name": "Quarter",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "QuarterName": {
+          "autoincrement": false,
+          "name": "QuarterName",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Year": {
+          "autoincrement": false,
+          "name": "Year",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "MMYYYY": {
+          "autoincrement": false,
+          "name": "MMYYYY",
+          "type": "char(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "MonthYear": {
+          "autoincrement": false,
+          "name": "MonthYear",
+          "type": "char(7)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FirstDayOfMonth": {
+          "autoincrement": false,
+          "name": "FirstDayOfMonth",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LastDayOfMonth": {
+          "autoincrement": false,
+          "name": "LastDayOfMonth",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FirstDayOfQuarter": {
+          "autoincrement": false,
+          "name": "FirstDayOfQuarter",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LastDayOfQuarter": {
+          "autoincrement": false,
+          "name": "LastDayOfQuarter",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FirstDayOfYear": {
+          "autoincrement": false,
+          "name": "FirstDayOfYear",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LastDayOfYear": {
+          "autoincrement": false,
+          "name": "LastDayOfYear",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FirstDayOfNextMonth": {
+          "autoincrement": false,
+          "name": "FirstDayOfNextMonth",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FirstDayOfNextYear": {
+          "autoincrement": false,
+          "name": "FirstDayOfNextYear",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "datedimension_DateDimensionID_DateKey": {
+          "name": "datedimension_DateDimensionID_DateKey",
+          "columns": [
+            "DateDimensionID",
+            "DateKey"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "fbadaccounts": {
+      "name": "fbadaccounts",
+      "columns": {
+        "FBAdAccountID": {
+          "autoincrement": true,
+          "name": "FBAdAccountID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AppID": {
+          "autoincrement": false,
+          "name": "AppID",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AppSecret": {
+          "autoincrement": false,
+          "name": "AppSecret",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AppToken": {
+          "autoincrement": false,
+          "name": "AppToken",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "LongLiveToken": {
+          "autoincrement": false,
+          "name": "LongLiveToken",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Active": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "Active",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "fbadaccounts_FBAdAccountID": {
+          "name": "fbadaccounts_FBAdAccountID",
+          "columns": [
+            "FBAdAccountID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_FBAdAccounts_TenantID": {
+          "name": "IX_FBAdAccounts_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_FBAdAccounts_Tenants": {
+          "name": "FK_FBAdAccounts_Tenants",
+          "tableFrom": "fbadaccounts",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "fbadforms": {
+      "name": "fbadforms",
+      "columns": {
+        "FBAdFormID": {
+          "autoincrement": true,
+          "name": "FBAdFormID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FBAdPageID": {
+          "autoincrement": false,
+          "name": "FBAdPageID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ProjectID": {
+          "autoincrement": false,
+          "name": "ProjectID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "InternalID": {
+          "autoincrement": false,
+          "name": "InternalID",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Active": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "Active",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LastSyncAt": {
+          "autoincrement": false,
+          "name": "LastSyncAt",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "InitialSyncAt": {
+          "autoincrement": false,
+          "name": "InitialSyncAt",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "fbadforms_FBAdFormID": {
+          "name": "fbadforms_FBAdFormID",
+          "columns": [
+            "FBAdFormID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_FBAdForms_TenantID": {
+          "name": "IX_FBAdForms_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_FBAdForms_FBAdPages": {
+          "name": "FK_FBAdForms_FBAdPages",
+          "tableFrom": "fbadforms",
+          "tableTo": "fbadpages",
+          "columnsFrom": [
+            "FBAdPageID"
+          ],
+          "columnsTo": [
+            "FBAdPageID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_FBAdForms_invProjects": {
+          "name": "FK_FBAdForms_invProjects",
+          "tableFrom": "fbadforms",
+          "tableTo": "invprojects",
+          "columnsFrom": [
+            "ProjectID"
+          ],
+          "columnsTo": [
+            "ProjectID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_FBAdForms_Tenants": {
+          "name": "FK_FBAdForms_Tenants",
+          "tableFrom": "fbadforms",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "fbadleads": {
+      "name": "fbadleads",
+      "columns": {
+        "FBAdLeadID": {
+          "autoincrement": true,
+          "name": "FBAdLeadID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FBAdFormID": {
+          "autoincrement": false,
+          "name": "FBAdFormID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Data": {
+          "autoincrement": false,
+          "name": "Data",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "InternalID": {
+          "autoincrement": false,
+          "name": "InternalID",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Processed": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "Processed",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CreatedAT": {
+          "autoincrement": false,
+          "name": "CreatedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "fbadleads_FBAdLeadID": {
+          "name": "fbadleads_FBAdLeadID",
+          "columns": [
+            "FBAdLeadID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_FBAdLeads_TenantID": {
+          "name": "IX_FBAdLeads_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_FBAdLeads_FBAdForms": {
+          "name": "FK_FBAdLeads_FBAdForms",
+          "tableFrom": "fbadleads",
+          "tableTo": "fbadforms",
+          "columnsFrom": [
+            "FBAdFormID"
+          ],
+          "columnsTo": [
+            "FBAdFormID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_FBAdLeads_Tenants": {
+          "name": "FK_FBAdLeads_Tenants",
+          "tableFrom": "fbadleads",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "fbadpages": {
+      "name": "fbadpages",
+      "columns": {
+        "FBAdPageID": {
+          "autoincrement": true,
+          "name": "FBAdPageID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FBAdAccountID": {
+          "autoincrement": false,
+          "name": "FBAdAccountID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Token": {
+          "autoincrement": false,
+          "name": "Token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "InternalID": {
+          "autoincrement": false,
+          "name": "InternalID",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Active": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "Active",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "fbadpages_FBAdPageID": {
+          "name": "fbadpages_FBAdPageID",
+          "columns": [
+            "FBAdPageID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_FBAdPages_TenantID": {
+          "name": "IX_FBAdPages_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_FBAdPages_FBAdAccounts": {
+          "name": "FK_FBAdPages_FBAdAccounts",
+          "tableFrom": "fbadpages",
+          "tableTo": "fbadaccounts",
+          "columnsFrom": [
+            "FBAdAccountID"
+          ],
+          "columnsTo": [
+            "FBAdAccountID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_FBAdPages_Tenants": {
+          "name": "FK_FBAdPages_Tenants",
+          "tableFrom": "fbadpages",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "fbimportleads": {
+      "name": "fbimportleads",
+      "columns": {
+        "FBImportLeadID": {
+          "autoincrement": true,
+          "name": "FBImportLeadID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SaleTeamID": {
+          "autoincrement": false,
+          "name": "SaleTeamID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LeadSourceID": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "LeadSourceID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ProjectID": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "ProjectID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ImportedAT": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "ImportedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LeadCSVDetail": {
+          "autoincrement": false,
+          "name": "LeadCSVDetail",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "RejectedCSVDetail": {
+          "autoincrement": false,
+          "name": "RejectedCSVDetail",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Posted": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "Posted",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "LeadSummary": {
+          "autoincrement": false,
+          "name": "LeadSummary",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "fbimportleads_FBImportLeadID": {
+          "name": "fbimportleads_FBImportLeadID",
+          "columns": [
+            "FBImportLeadID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_FBImportLeads_TenantID": {
+          "name": "IX_FBImportLeads_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_FBImportLeads_LeadSources": {
+          "name": "FK_FBImportLeads_LeadSources",
+          "tableFrom": "fbimportleads",
+          "tableTo": "leadsources",
+          "columnsFrom": [
+            "LeadSourceID"
+          ],
+          "columnsTo": [
+            "LeadSourceID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_FBImportLeads_SaleTeams": {
+          "name": "FK_FBImportLeads_SaleTeams",
+          "tableFrom": "fbimportleads",
+          "tableTo": "saleteams",
+          "columnsFrom": [
+            "SaleTeamID"
+          ],
+          "columnsTo": [
+            "SaleTeamID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_FBImportLeads_Tenants": {
+          "name": "FK_FBImportLeads_Tenants",
+          "tableFrom": "fbimportleads",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "invareas": {
+      "name": "invareas",
+      "columns": {
+        "AreaID": {
+          "autoincrement": true,
+          "name": "AreaID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CityID": {
+          "autoincrement": false,
+          "name": "CityID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "invareas_AreaID": {
+          "name": "invareas_AreaID",
+          "columns": [
+            "AreaID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_invAreas_TenantID": {
+          "name": "IX_invAreas_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_invAreas_invCities": {
+          "name": "FK_invAreas_invCities",
+          "tableFrom": "invareas",
+          "tableTo": "invcities",
+          "columnsFrom": [
+            "CityID"
+          ],
+          "columnsTo": [
+            "CityID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invAreas_Tenants": {
+          "name": "FK_invAreas_Tenants",
+          "tableFrom": "invareas",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "invblocks": {
+      "name": "invblocks",
+      "columns": {
+        "BlockID": {
+          "autoincrement": true,
+          "name": "BlockID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SectorID": {
+          "autoincrement": false,
+          "name": "SectorID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "invblocks_BlockID": {
+          "name": "invblocks_BlockID",
+          "columns": [
+            "BlockID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_invBlocks_TenantID": {
+          "name": "IX_invBlocks_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_invBlocks_invSectors": {
+          "name": "FK_invBlocks_invSectors",
+          "tableFrom": "invblocks",
+          "tableTo": "invsectors",
+          "columnsFrom": [
+            "SectorID"
+          ],
+          "columnsTo": [
+            "SectorID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invBlocks_Tenants": {
+          "name": "FK_invBlocks_Tenants",
+          "tableFrom": "invblocks",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "invcities": {
+      "name": "invcities",
+      "columns": {
+        "CityID": {
+          "autoincrement": true,
+          "name": "CityID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "invcities_CityID": {
+          "name": "invcities_CityID",
+          "columns": [
+            "CityID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_invCities_TenantID": {
+          "name": "IX_invCities_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_invCities_Tenants": {
+          "name": "FK_invCities_Tenants",
+          "tableFrom": "invcities",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "invclients": {
+      "name": "invclients",
+      "columns": {
+        "ClientID": {
+          "autoincrement": true,
+          "name": "ClientID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ProspectID": {
+          "autoincrement": false,
+          "name": "ProspectID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Address": {
+          "autoincrement": false,
+          "name": "Address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ContactNo": {
+          "autoincrement": false,
+          "name": "ContactNo",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FatherName": {
+          "autoincrement": false,
+          "name": "FatherName",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "IDCardNo": {
+          "autoincrement": false,
+          "name": "IDCardNo",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Notes": {
+          "autoincrement": false,
+          "name": "Notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Profession": {
+          "autoincrement": false,
+          "name": "Profession",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "invclients_ClientID": {
+          "name": "invclients_ClientID",
+          "columns": [
+            "ClientID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_invClients_TenantID": {
+          "name": "IX_invClients_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        },
+        "IX_invClients_ProspectID": {
+          "name": "IX_invClients_ProspectID",
+          "columns": [
+            "ProspectID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_invClients_Prospects": {
+          "name": "FK_invClients_Prospects",
+          "tableFrom": "invclients",
+          "tableTo": "prospects",
+          "columnsFrom": [
+            "ProspectID"
+          ],
+          "columnsTo": [
+            "ProspectID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invClients_Tenants": {
+          "name": "FK_invClients_Tenants",
+          "tableFrom": "invclients",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "invclienttypes": {
+      "name": "invclienttypes",
+      "columns": {
+        "ClientTypeID": {
+          "autoincrement": true,
+          "name": "ClientTypeID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "invclienttypes_ClientTypeID": {
+          "name": "invclienttypes_ClientTypeID",
+          "columns": [
+            "ClientTypeID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_invClientTypes_TenantID": {
+          "name": "IX_invClientTypes_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_invClientTypes_Tenants": {
+          "name": "FK_invClientTypes_Tenants",
+          "tableFrom": "invclienttypes",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "invfeatures": {
+      "name": "invfeatures",
+      "columns": {
+        "FeatureID": {
+          "autoincrement": true,
+          "name": "FeatureID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "invfeatures_FeatureID": {
+          "name": "invfeatures_FeatureID",
+          "columns": [
+            "FeatureID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_invFeatures_TenantID": {
+          "name": "IX_invFeatures_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_invFeatures_Tenants": {
+          "name": "FK_invFeatures_Tenants",
+          "tableFrom": "invfeatures",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "invinventories": {
+      "name": "invinventories",
+      "columns": {
+        "InventoryID": {
+          "autoincrement": true,
+          "name": "InventoryID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ProjectID": {
+          "autoincrement": false,
+          "name": "ProjectID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "PhaseId": {
+          "autoincrement": false,
+          "name": "PhaseId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "SectorId": {
+          "autoincrement": false,
+          "name": "SectorId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "BlockId": {
+          "autoincrement": false,
+          "name": "BlockId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AreaId": {
+          "autoincrement": false,
+          "name": "AreaId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "CityId": {
+          "autoincrement": false,
+          "name": "CityId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Street": {
+          "autoincrement": false,
+          "name": "Street",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TypeID": {
+          "autoincrement": false,
+          "name": "TypeID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "SizeID": {
+          "autoincrement": false,
+          "name": "SizeID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "StyleID": {
+          "autoincrement": false,
+          "name": "StyleID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "OptionID": {
+          "autoincrement": false,
+          "name": "OptionID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "PurposeID": {
+          "autoincrement": false,
+          "name": "PurposeID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FloorNumber": {
+          "autoincrement": false,
+          "name": "FloorNumber",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FacingDirection": {
+          "autoincrement": false,
+          "name": "FacingDirection",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Price": {
+          "default": "'0.00'",
+          "autoincrement": false,
+          "name": "Price",
+          "type": "decimal(18,2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Status": {
+          "default": "'available'",
+          "autoincrement": false,
+          "name": "Status",
+          "type": "enum('available','reserved','sold','transferred')",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ClientID": {
+          "autoincrement": false,
+          "name": "ClientID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ClientTypeID": {
+          "autoincrement": false,
+          "name": "ClientTypeID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AssignedAT": {
+          "autoincrement": false,
+          "name": "AssignedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AssignedBy": {
+          "autoincrement": false,
+          "name": "AssignedBy",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AssignedTo": {
+          "autoincrement": false,
+          "name": "AssignedTo",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TransferAT": {
+          "autoincrement": false,
+          "name": "TransferAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TransferBy": {
+          "autoincrement": false,
+          "name": "TransferBy",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Notes": {
+          "autoincrement": false,
+          "name": "Notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "IsActive": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "IsActive",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CreatedAT": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "CreatedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CreatedBy": {
+          "autoincrement": false,
+          "name": "CreatedBy",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ModifiedAT": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "ModifiedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ModifiedBy": {
+          "autoincrement": false,
+          "name": "ModifiedBy",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "invinventories_InventoryID": {
+          "name": "invinventories_InventoryID",
+          "columns": [
+            "InventoryID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_invInventories_TenantID": {
+          "name": "IX_invInventories_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        },
+        "IX_invInventories_TenantID_Status": {
+          "name": "IX_invInventories_TenantID_Status",
+          "columns": [
+            "TenantID",
+            "Status"
+          ],
+          "isUnique": false
+        },
+        "IX_invInventories_TenantID_ProjectID": {
+          "name": "IX_invInventories_TenantID_ProjectID",
+          "columns": [
+            "TenantID",
+            "ProjectID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_invInventories_invAreas": {
+          "name": "FK_invInventories_invAreas",
+          "tableFrom": "invinventories",
+          "tableTo": "invareas",
+          "columnsFrom": [
+            "AreaId"
+          ],
+          "columnsTo": [
+            "AreaID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invInventories_invBlocks": {
+          "name": "FK_invInventories_invBlocks",
+          "tableFrom": "invinventories",
+          "tableTo": "invblocks",
+          "columnsFrom": [
+            "BlockId"
+          ],
+          "columnsTo": [
+            "BlockID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invInventories_invCities": {
+          "name": "FK_invInventories_invCities",
+          "tableFrom": "invinventories",
+          "tableTo": "invcities",
+          "columnsFrom": [
+            "CityId"
+          ],
+          "columnsTo": [
+            "CityID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invInventories_invClients": {
+          "name": "FK_invInventories_invClients",
+          "tableFrom": "invinventories",
+          "tableTo": "invclients",
+          "columnsFrom": [
+            "ClientID"
+          ],
+          "columnsTo": [
+            "ClientID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invInventories_invClientTypes": {
+          "name": "FK_invInventories_invClientTypes",
+          "tableFrom": "invinventories",
+          "tableTo": "invclienttypes",
+          "columnsFrom": [
+            "ClientTypeID"
+          ],
+          "columnsTo": [
+            "ClientTypeID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invInventories_invOptions": {
+          "name": "FK_invInventories_invOptions",
+          "tableFrom": "invinventories",
+          "tableTo": "invoptions",
+          "columnsFrom": [
+            "OptionID"
+          ],
+          "columnsTo": [
+            "OptionID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invInventories_invPhases": {
+          "name": "FK_invInventories_invPhases",
+          "tableFrom": "invinventories",
+          "tableTo": "invphases",
+          "columnsFrom": [
+            "PhaseId"
+          ],
+          "columnsTo": [
+            "PhaseID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invInventories_invProjects": {
+          "name": "FK_invInventories_invProjects",
+          "tableFrom": "invinventories",
+          "tableTo": "invprojects",
+          "columnsFrom": [
+            "ProjectID"
+          ],
+          "columnsTo": [
+            "ProjectID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invInventories_invPurposes": {
+          "name": "FK_invInventories_invPurposes",
+          "tableFrom": "invinventories",
+          "tableTo": "invpurposes",
+          "columnsFrom": [
+            "PurposeID"
+          ],
+          "columnsTo": [
+            "PurposeID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invInventories_invSectors": {
+          "name": "FK_invInventories_invSectors",
+          "tableFrom": "invinventories",
+          "tableTo": "invsectors",
+          "columnsFrom": [
+            "SectorId"
+          ],
+          "columnsTo": [
+            "SectorID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invInventories_invSizes": {
+          "name": "FK_invInventories_invSizes",
+          "tableFrom": "invinventories",
+          "tableTo": "invsizes",
+          "columnsFrom": [
+            "SizeID"
+          ],
+          "columnsTo": [
+            "SizeID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invInventories_invStyles": {
+          "name": "FK_invInventories_invStyles",
+          "tableFrom": "invinventories",
+          "tableTo": "invstyles",
+          "columnsFrom": [
+            "StyleID"
+          ],
+          "columnsTo": [
+            "StyleID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invInventories_invTypes": {
+          "name": "FK_invInventories_invTypes",
+          "tableFrom": "invinventories",
+          "tableTo": "invtypes",
+          "columnsFrom": [
+            "TypeID"
+          ],
+          "columnsTo": [
+            "TypeID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invInventories_Tenants": {
+          "name": "FK_invInventories_Tenants",
+          "tableFrom": "invinventories",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "invinventoryfeatures": {
+      "name": "invinventoryfeatures",
+      "columns": {
+        "InventoryID": {
+          "autoincrement": false,
+          "name": "InventoryID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FeatureID": {
+          "autoincrement": false,
+          "name": "FeatureID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "invinventoryfeatures_InventoryID_FeatureID": {
+          "name": "invinventoryfeatures_InventoryID_FeatureID",
+          "columns": [
+            "InventoryID",
+            "FeatureID"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "FK_invInventoryFeatures_invFeatures": {
+          "name": "FK_invInventoryFeatures_invFeatures",
+          "tableFrom": "invinventoryfeatures",
+          "tableTo": "invfeatures",
+          "columnsFrom": [
+            "FeatureID"
+          ],
+          "columnsTo": [
+            "FeatureID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invInventoryFeatures_invInventories": {
+          "name": "FK_invInventoryFeatures_invInventories",
+          "tableFrom": "invinventoryfeatures",
+          "tableTo": "invinventories",
+          "columnsFrom": [
+            "InventoryID"
+          ],
+          "columnsTo": [
+            "InventoryID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invInventoryFeatures_Tenants": {
+          "name": "FK_invInventoryFeatures_Tenants",
+          "tableFrom": "invinventoryfeatures",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "invinventorypricelog": {
+      "name": "invinventorypricelog",
+      "columns": {
+        "PriceLogID": {
+          "autoincrement": true,
+          "name": "PriceLogID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "InventoryID": {
+          "autoincrement": false,
+          "name": "InventoryID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "OldPrice": {
+          "autoincrement": false,
+          "name": "OldPrice",
+          "type": "decimal(18,2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "NewPrice": {
+          "autoincrement": false,
+          "name": "NewPrice",
+          "type": "decimal(18,2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ChangedAT": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "ChangedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ChangedBy": {
+          "autoincrement": false,
+          "name": "ChangedBy",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Reason": {
+          "autoincrement": false,
+          "name": "Reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "invinventorypricelog_PriceLogID": {
+          "name": "invinventorypricelog_PriceLogID",
+          "columns": [
+            "PriceLogID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_invInventoryPriceLog_TenantID_InventoryID": {
+          "name": "IX_invInventoryPriceLog_TenantID_InventoryID",
+          "columns": [
+            "TenantID",
+            "InventoryID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_invInventoryPriceLog_invInventories": {
+          "name": "FK_invInventoryPriceLog_invInventories",
+          "tableFrom": "invinventorypricelog",
+          "tableTo": "invinventories",
+          "columnsFrom": [
+            "InventoryID"
+          ],
+          "columnsTo": [
+            "InventoryID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invInventoryPriceLog_Tenants": {
+          "name": "FK_invInventoryPriceLog_Tenants",
+          "tableFrom": "invinventorypricelog",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "invoptions": {
+      "name": "invoptions",
+      "columns": {
+        "OptionID": {
+          "autoincrement": true,
+          "name": "OptionID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "invoptions_OptionID": {
+          "name": "invoptions_OptionID",
+          "columns": [
+            "OptionID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_invOptions_TenantID": {
+          "name": "IX_invOptions_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_invOptions_Tenants": {
+          "name": "FK_invOptions_Tenants",
+          "tableFrom": "invoptions",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "invphases": {
+      "name": "invphases",
+      "columns": {
+        "PhaseID": {
+          "autoincrement": true,
+          "name": "PhaseID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ProjectID": {
+          "autoincrement": false,
+          "name": "ProjectID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "invphases_PhaseID": {
+          "name": "invphases_PhaseID",
+          "columns": [
+            "PhaseID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_invPhases_TenantID": {
+          "name": "IX_invPhases_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_invPhases_invProjects": {
+          "name": "FK_invPhases_invProjects",
+          "tableFrom": "invphases",
+          "tableTo": "invprojects",
+          "columnsFrom": [
+            "ProjectID"
+          ],
+          "columnsTo": [
+            "ProjectID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invPhases_Tenants": {
+          "name": "FK_invPhases_Tenants",
+          "tableFrom": "invphases",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "invprojects": {
+      "name": "invprojects",
+      "columns": {
+        "ProjectID": {
+          "autoincrement": true,
+          "name": "ProjectID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "AreaID": {
+          "autoincrement": false,
+          "name": "AreaID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "IsActive": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "IsActive",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "invprojects_ProjectID": {
+          "name": "invprojects_ProjectID",
+          "columns": [
+            "ProjectID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_invProjects_TenantID": {
+          "name": "IX_invProjects_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_invProjects_invAreas": {
+          "name": "FK_invProjects_invAreas",
+          "tableFrom": "invprojects",
+          "tableTo": "invareas",
+          "columnsFrom": [
+            "AreaID"
+          ],
+          "columnsTo": [
+            "AreaID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invProjects_Tenants": {
+          "name": "FK_invProjects_Tenants",
+          "tableFrom": "invprojects",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "invpurposes": {
+      "name": "invpurposes",
+      "columns": {
+        "PurposeID": {
+          "autoincrement": true,
+          "name": "PurposeID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "invpurposes_PurposeID": {
+          "name": "invpurposes_PurposeID",
+          "columns": [
+            "PurposeID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_invPurposes_TenantID": {
+          "name": "IX_invPurposes_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_invPurposes_Tenants": {
+          "name": "FK_invPurposes_Tenants",
+          "tableFrom": "invpurposes",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "invsectors": {
+      "name": "invsectors",
+      "columns": {
+        "SectorID": {
+          "autoincrement": true,
+          "name": "SectorID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "PhaseID": {
+          "autoincrement": false,
+          "name": "PhaseID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "invsectors_SectorID": {
+          "name": "invsectors_SectorID",
+          "columns": [
+            "SectorID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_invSectors_TenantID": {
+          "name": "IX_invSectors_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_invSectors_invPhases": {
+          "name": "FK_invSectors_invPhases",
+          "tableFrom": "invsectors",
+          "tableTo": "invphases",
+          "columnsFrom": [
+            "PhaseID"
+          ],
+          "columnsTo": [
+            "PhaseID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_invSectors_Tenants": {
+          "name": "FK_invSectors_Tenants",
+          "tableFrom": "invsectors",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "invsizes": {
+      "name": "invsizes",
+      "columns": {
+        "SizeID": {
+          "autoincrement": true,
+          "name": "SizeID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "invsizes_SizeID": {
+          "name": "invsizes_SizeID",
+          "columns": [
+            "SizeID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_invSizes_TenantID": {
+          "name": "IX_invSizes_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_invSizes_Tenants": {
+          "name": "FK_invSizes_Tenants",
+          "tableFrom": "invsizes",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "invstyles": {
+      "name": "invstyles",
+      "columns": {
+        "StyleID": {
+          "autoincrement": true,
+          "name": "StyleID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "invstyles_StyleID": {
+          "name": "invstyles_StyleID",
+          "columns": [
+            "StyleID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_invStyles_TenantID": {
+          "name": "IX_invStyles_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_invStyles_Tenants": {
+          "name": "FK_invStyles_Tenants",
+          "tableFrom": "invstyles",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "invtypes": {
+      "name": "invtypes",
+      "columns": {
+        "TypeID": {
+          "autoincrement": true,
+          "name": "TypeID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "invtypes_TypeID": {
+          "name": "invtypes_TypeID",
+          "columns": [
+            "TypeID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_invTypes_TenantID": {
+          "name": "IX_invTypes_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_invTypes_Tenants": {
+          "name": "FK_invTypes_Tenants",
+          "tableFrom": "invtypes",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "leadcommunications": {
+      "name": "leadcommunications",
+      "columns": {
+        "LeadCommunicationID": {
+          "autoincrement": true,
+          "name": "LeadCommunicationID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LeadID": {
+          "autoincrement": false,
+          "name": "LeadID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CommunicationTypeID": {
+          "autoincrement": false,
+          "name": "CommunicationTypeID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "StatusID": {
+          "autoincrement": false,
+          "name": "StatusID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Outcome": {
+          "autoincrement": false,
+          "name": "Outcome",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "NextAction": {
+          "autoincrement": false,
+          "name": "NextAction",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Duration": {
+          "autoincrement": false,
+          "name": "Duration",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AT": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "AT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FollowUpOn": {
+          "autoincrement": false,
+          "name": "FollowUpOn",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "By": {
+          "autoincrement": false,
+          "name": "By",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TeamID": {
+          "autoincrement": false,
+          "name": "TeamID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "leadcommunications_LeadCommunicationID": {
+          "name": "leadcommunications_LeadCommunicationID",
+          "columns": [
+            "LeadCommunicationID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_LeadCommunications_TenantID_LeadID": {
+          "name": "IX_LeadCommunications_TenantID_LeadID",
+          "columns": [
+            "TenantID",
+            "LeadID"
+          ],
+          "isUnique": false
+        },
+        "IX_LeadCommunications_TenantID_FollowUpOn": {
+          "name": "IX_LeadCommunications_TenantID_FollowUpOn",
+          "columns": [
+            "TenantID",
+            "FollowUpOn"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_LeadCommunications_CommunicationTypes": {
+          "name": "FK_LeadCommunications_CommunicationTypes",
+          "tableFrom": "leadcommunications",
+          "tableTo": "communicationtypes",
+          "columnsFrom": [
+            "CommunicationTypeID"
+          ],
+          "columnsTo": [
+            "CommunicationTypeID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_LeadCommunications_Leads": {
+          "name": "FK_LeadCommunications_Leads",
+          "tableFrom": "leadcommunications",
+          "tableTo": "leads",
+          "columnsFrom": [
+            "LeadID"
+          ],
+          "columnsTo": [
+            "LeadID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "FK_LeadCommunications_Statuses": {
+          "name": "FK_LeadCommunications_Statuses",
+          "tableFrom": "leadcommunications",
+          "tableTo": "statuses",
+          "columnsFrom": [
+            "StatusID"
+          ],
+          "columnsTo": [
+            "StatusID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_LeadCommunications_Tenants": {
+          "name": "FK_LeadCommunications_Tenants",
+          "tableFrom": "leadcommunications",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "leads": {
+      "name": "leads",
+      "columns": {
+        "LeadID": {
+          "autoincrement": true,
+          "name": "LeadID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LeadDate": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "LeadDate",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ProspectID": {
+          "autoincrement": false,
+          "name": "ProspectID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ProjectID": {
+          "autoincrement": false,
+          "name": "ProjectID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "InventoryID": {
+          "autoincrement": false,
+          "name": "InventoryID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "SaleTeamID": {
+          "autoincrement": false,
+          "name": "SaleTeamID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "StaffID": {
+          "autoincrement": false,
+          "name": "StaffID",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "LeadSourceID": {
+          "autoincrement": false,
+          "name": "LeadSourceID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "StatusID": {
+          "autoincrement": false,
+          "name": "StatusID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Budget": {
+          "default": "'0.00'",
+          "autoincrement": false,
+          "name": "Budget",
+          "type": "decimal(18,2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Priority": {
+          "default": "'medium'",
+          "autoincrement": false,
+          "name": "Priority",
+          "type": "enum('low','medium','high')",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Notes": {
+          "autoincrement": false,
+          "name": "Notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FollowUpOn": {
+          "autoincrement": false,
+          "name": "FollowUpOn",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ExpectedCloseDate": {
+          "autoincrement": false,
+          "name": "ExpectedCloseDate",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ClosedAT": {
+          "autoincrement": false,
+          "name": "ClosedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ClosedBy": {
+          "autoincrement": false,
+          "name": "ClosedBy",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "LostReason": {
+          "autoincrement": false,
+          "name": "LostReason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AssignedAT": {
+          "autoincrement": false,
+          "name": "AssignedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AssignedBy": {
+          "autoincrement": false,
+          "name": "AssignedBy",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TransferAT": {
+          "autoincrement": false,
+          "name": "TransferAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TransferBy": {
+          "autoincrement": false,
+          "name": "TransferBy",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FBAdFormID": {
+          "autoincrement": false,
+          "name": "FBAdFormID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FBImportLeadID": {
+          "autoincrement": false,
+          "name": "FBImportLeadID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "InternalID": {
+          "autoincrement": false,
+          "name": "InternalID",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "SNo": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "SNo",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CreatedAT": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "CreatedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CreatedBy": {
+          "autoincrement": false,
+          "name": "CreatedBy",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "UpdatedAT": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "UpdatedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "leads_LeadID": {
+          "name": "leads_LeadID",
+          "columns": [
+            "LeadID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_Leads_TenantID": {
+          "name": "IX_Leads_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        },
+        "IX_Leads_TenantID_StatusID": {
+          "name": "IX_Leads_TenantID_StatusID",
+          "columns": [
+            "TenantID",
+            "StatusID"
+          ],
+          "isUnique": false
+        },
+        "IX_Leads_TenantID_StaffID": {
+          "name": "IX_Leads_TenantID_StaffID",
+          "columns": [
+            "TenantID",
+            "StaffID"
+          ],
+          "isUnique": false
+        },
+        "IX_Leads_TenantID_FollowUpOn": {
+          "name": "IX_Leads_TenantID_FollowUpOn",
+          "columns": [
+            "TenantID",
+            "FollowUpOn"
+          ],
+          "isUnique": false
+        },
+        "IX_Leads_TenantID_ProspectID": {
+          "name": "IX_Leads_TenantID_ProspectID",
+          "columns": [
+            "TenantID",
+            "ProspectID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_Leads_FBAdForms": {
+          "name": "FK_Leads_FBAdForms",
+          "tableFrom": "leads",
+          "tableTo": "fbadforms",
+          "columnsFrom": [
+            "FBAdFormID"
+          ],
+          "columnsTo": [
+            "FBAdFormID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_Leads_FBImportLeads": {
+          "name": "FK_Leads_FBImportLeads",
+          "tableFrom": "leads",
+          "tableTo": "fbimportleads",
+          "columnsFrom": [
+            "FBImportLeadID"
+          ],
+          "columnsTo": [
+            "FBImportLeadID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_Leads_invInventories": {
+          "name": "FK_Leads_invInventories",
+          "tableFrom": "leads",
+          "tableTo": "invinventories",
+          "columnsFrom": [
+            "InventoryID"
+          ],
+          "columnsTo": [
+            "InventoryID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_Leads_invProjects": {
+          "name": "FK_Leads_invProjects",
+          "tableFrom": "leads",
+          "tableTo": "invprojects",
+          "columnsFrom": [
+            "ProjectID"
+          ],
+          "columnsTo": [
+            "ProjectID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_Leads_LeadSources": {
+          "name": "FK_Leads_LeadSources",
+          "tableFrom": "leads",
+          "tableTo": "leadsources",
+          "columnsFrom": [
+            "LeadSourceID"
+          ],
+          "columnsTo": [
+            "LeadSourceID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_Leads_Prospects": {
+          "name": "FK_Leads_Prospects",
+          "tableFrom": "leads",
+          "tableTo": "prospects",
+          "columnsFrom": [
+            "ProspectID"
+          ],
+          "columnsTo": [
+            "ProspectID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_Leads_SaleTeams": {
+          "name": "FK_Leads_SaleTeams",
+          "tableFrom": "leads",
+          "tableTo": "saleteams",
+          "columnsFrom": [
+            "SaleTeamID"
+          ],
+          "columnsTo": [
+            "SaleTeamID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_Leads_Staffs": {
+          "name": "FK_Leads_Staffs",
+          "tableFrom": "leads",
+          "tableTo": "staffs",
+          "columnsFrom": [
+            "StaffID"
+          ],
+          "columnsTo": [
+            "StaffID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_Leads_Statuses": {
+          "name": "FK_Leads_Statuses",
+          "tableFrom": "leads",
+          "tableTo": "statuses",
+          "columnsFrom": [
+            "StatusID"
+          ],
+          "columnsTo": [
+            "StatusID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_Leads_Tenants": {
+          "name": "FK_Leads_Tenants",
+          "tableFrom": "leads",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "leadsources": {
+      "name": "leadsources",
+      "columns": {
+        "LeadSourceID": {
+          "autoincrement": true,
+          "name": "LeadSourceID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "IsActive": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "IsActive",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "leadsources_LeadSourceID": {
+          "name": "leadsources_LeadSourceID",
+          "columns": [
+            "LeadSourceID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_LeadSources_TenantID": {
+          "name": "IX_LeadSources_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_LeadSources_Tenants": {
+          "name": "FK_LeadSources_Tenants",
+          "tableFrom": "leadsources",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "leadsummary": {
+      "name": "leadsummary",
+      "columns": {
+        "LeadID": {
+          "autoincrement": true,
+          "name": "LeadID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LeadDate": {
+          "autoincrement": false,
+          "name": "LeadDate",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "AssignedAT": {
+          "autoincrement": false,
+          "name": "AssignedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AssignedBy": {
+          "autoincrement": false,
+          "name": "AssignedBy",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AssignedTo": {
+          "autoincrement": false,
+          "name": "AssignedTo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Comments": {
+          "autoincrement": false,
+          "name": "Comments",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Status": {
+          "autoincrement": false,
+          "name": "Status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "StatusID": {
+          "autoincrement": false,
+          "name": "StatusID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AT": {
+          "autoincrement": false,
+          "name": "AT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FollowUpOn": {
+          "autoincrement": false,
+          "name": "FollowUpOn",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "leadsummary_LeadID": {
+          "name": "leadsummary_LeadID",
+          "columns": [
+            "LeadID"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "prospectaddress": {
+      "name": "prospectaddress",
+      "columns": {
+        "ProspectAddressID": {
+          "autoincrement": true,
+          "name": "ProspectAddressID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ProspectID": {
+          "autoincrement": false,
+          "name": "ProspectID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Label": {
+          "default": "'Home'",
+          "autoincrement": false,
+          "name": "Label",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Street": {
+          "autoincrement": false,
+          "name": "Street",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Area": {
+          "autoincrement": false,
+          "name": "Area",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "City": {
+          "autoincrement": false,
+          "name": "City",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Country": {
+          "default": "'Pakistan'",
+          "autoincrement": false,
+          "name": "Country",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "IsPrimary": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "IsPrimary",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "prospectaddress_ProspectAddressID": {
+          "name": "prospectaddress_ProspectAddressID",
+          "columns": [
+            "ProspectAddressID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_ProspectAddress_TenantID_ProspectID": {
+          "name": "IX_ProspectAddress_TenantID_ProspectID",
+          "columns": [
+            "TenantID",
+            "ProspectID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_ProspectAddress_Prospects": {
+          "name": "FK_ProspectAddress_Prospects",
+          "tableFrom": "prospectaddress",
+          "tableTo": "prospects",
+          "columnsFrom": [
+            "ProspectID"
+          ],
+          "columnsTo": [
+            "ProspectID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "FK_ProspectAddress_Tenants": {
+          "name": "FK_ProspectAddress_Tenants",
+          "tableFrom": "prospectaddress",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "prospectasset": {
+      "name": "prospectasset",
+      "columns": {
+        "ProspectAssetID": {
+          "autoincrement": true,
+          "name": "ProspectAssetID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ProspectID": {
+          "autoincrement": false,
+          "name": "ProspectID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "AssetTypeID": {
+          "autoincrement": false,
+          "name": "AssetTypeID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Location": {
+          "autoincrement": false,
+          "name": "Location",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Notes": {
+          "autoincrement": false,
+          "name": "Notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Value": {
+          "default": "'0.00'",
+          "autoincrement": false,
+          "name": "Value",
+          "type": "decimal(18,2)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "prospectasset_ProspectAssetID": {
+          "name": "prospectasset_ProspectAssetID",
+          "columns": [
+            "ProspectAssetID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_ProspectAsset_TenantID_ProspectID": {
+          "name": "IX_ProspectAsset_TenantID_ProspectID",
+          "columns": [
+            "TenantID",
+            "ProspectID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_ProspectAsset_AssetType": {
+          "name": "FK_ProspectAsset_AssetType",
+          "tableFrom": "prospectasset",
+          "tableTo": "assettype",
+          "columnsFrom": [
+            "AssetTypeID"
+          ],
+          "columnsTo": [
+            "AssetTypeID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_ProspectAsset_Prospects": {
+          "name": "FK_ProspectAsset_Prospects",
+          "tableFrom": "prospectasset",
+          "tableTo": "prospects",
+          "columnsFrom": [
+            "ProspectID"
+          ],
+          "columnsTo": [
+            "ProspectID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "FK_ProspectAsset_Tenants": {
+          "name": "FK_ProspectAsset_Tenants",
+          "tableFrom": "prospectasset",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "prospectcontact": {
+      "name": "prospectcontact",
+      "columns": {
+        "ProspectContactID": {
+          "autoincrement": true,
+          "name": "ProspectContactID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ProspectID": {
+          "autoincrement": false,
+          "name": "ProspectID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ContactTypeID": {
+          "autoincrement": false,
+          "name": "ContactTypeID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ContactNo": {
+          "autoincrement": false,
+          "name": "ContactNo",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "IsPrimary": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "IsPrimary",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "prospectcontact_ProspectContactID": {
+          "name": "prospectcontact_ProspectContactID",
+          "columns": [
+            "ProspectContactID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_ProspectContact_TenantID_ProspectID": {
+          "name": "IX_ProspectContact_TenantID_ProspectID",
+          "columns": [
+            "TenantID",
+            "ProspectID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_ProspectContact_ContactTypes": {
+          "name": "FK_ProspectContact_ContactTypes",
+          "tableFrom": "prospectcontact",
+          "tableTo": "contacttypes",
+          "columnsFrom": [
+            "ContactTypeID"
+          ],
+          "columnsTo": [
+            "ContactTypeID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_ProspectContact_Prospects": {
+          "name": "FK_ProspectContact_Prospects",
+          "tableFrom": "prospectcontact",
+          "tableTo": "prospects",
+          "columnsFrom": [
+            "ProspectID"
+          ],
+          "columnsTo": [
+            "ProspectID"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "FK_ProspectContact_Tenants": {
+          "name": "FK_ProspectContact_Tenants",
+          "tableFrom": "prospectcontact",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "prospects": {
+      "name": "prospects",
+      "columns": {
+        "ProspectID": {
+          "autoincrement": true,
+          "name": "ProspectID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FullName": {
+          "autoincrement": false,
+          "name": "FullName",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "FatherName": {
+          "autoincrement": false,
+          "name": "FatherName",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "IDCardNo": {
+          "autoincrement": false,
+          "name": "IDCardNo",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "DOB": {
+          "autoincrement": false,
+          "name": "DOB",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Gender": {
+          "autoincrement": false,
+          "name": "Gender",
+          "type": "enum('male','female','other')",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "MaritalStatus": {
+          "autoincrement": false,
+          "name": "MaritalStatus",
+          "type": "enum('single','married','divorced','widowed')",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Nationality": {
+          "default": "'Pakistani'",
+          "autoincrement": false,
+          "name": "Nationality",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Profession": {
+          "autoincrement": false,
+          "name": "Profession",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "PrimaryPhone": {
+          "autoincrement": false,
+          "name": "PrimaryPhone",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Email": {
+          "autoincrement": false,
+          "name": "Email",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Address": {
+          "autoincrement": false,
+          "name": "Address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "LeadSourceID": {
+          "autoincrement": false,
+          "name": "LeadSourceID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ClientTypeID": {
+          "autoincrement": false,
+          "name": "ClientTypeID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Tags": {
+          "autoincrement": false,
+          "name": "Tags",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ProfilePhoto": {
+          "autoincrement": false,
+          "name": "ProfilePhoto",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Notes": {
+          "autoincrement": false,
+          "name": "Notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "IsActive": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "IsActive",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CreatedAT": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "CreatedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CreatedBy": {
+          "autoincrement": false,
+          "name": "CreatedBy",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "UpdatedAT": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "UpdatedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "prospects_ProspectID": {
+          "name": "prospects_ProspectID",
+          "columns": [
+            "ProspectID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_Prospects_TenantID": {
+          "name": "IX_Prospects_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        },
+        "IX_Prospects_IDCardNo": {
+          "name": "IX_Prospects_IDCardNo",
+          "columns": [
+            "TenantID",
+            "IDCardNo"
+          ],
+          "isUnique": false
+        },
+        "IX_Prospects_Email": {
+          "name": "IX_Prospects_Email",
+          "columns": [
+            "TenantID",
+            "Email"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_Prospects_LeadSources": {
+          "name": "FK_Prospects_LeadSources",
+          "tableFrom": "prospects",
+          "tableTo": "leadsources",
+          "columnsFrom": [
+            "LeadSourceID"
+          ],
+          "columnsTo": [
+            "LeadSourceID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_Prospects_Tenants": {
+          "name": "FK_Prospects_Tenants",
+          "tableFrom": "prospects",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "sajwaltyableads": {
+      "name": "sajwaltyableads",
+      "columns": {
+        "LeadID": {
+          "autoincrement": true,
+          "name": "LeadID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LeadDate": {
+          "autoincrement": false,
+          "name": "LeadDate",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ProjectID": {
+          "autoincrement": false,
+          "name": "ProjectID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "InventoryID": {
+          "autoincrement": false,
+          "name": "InventoryID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ProspectID": {
+          "autoincrement": false,
+          "name": "ProspectID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SaleTeamID": {
+          "autoincrement": false,
+          "name": "SaleTeamID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "StaffID": {
+          "autoincrement": false,
+          "name": "StaffID",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "LeadSourceID": {
+          "autoincrement": false,
+          "name": "LeadSourceID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FBImportLeadID": {
+          "autoincrement": false,
+          "name": "FBImportLeadID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FollowUpOn": {
+          "autoincrement": false,
+          "name": "FollowUpOn",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "StatusID": {
+          "autoincrement": false,
+          "name": "StatusID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "SNo": {
+          "autoincrement": false,
+          "name": "SNo",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "AssignedAT": {
+          "autoincrement": false,
+          "name": "AssignedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AssignedBy": {
+          "autoincrement": false,
+          "name": "AssignedBy",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TransferAT": {
+          "autoincrement": false,
+          "name": "TransferAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TransferBy": {
+          "autoincrement": false,
+          "name": "TransferBy",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "sajwaltyableads_LeadID": {
+          "name": "sajwaltyableads_LeadID",
+          "columns": [
+            "LeadID"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "saleteammembers": {
+      "name": "saleteammembers",
+      "columns": {
+        "SaleTeamMemberID": {
+          "autoincrement": true,
+          "name": "SaleTeamMemberID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SaleTeamID": {
+          "autoincrement": false,
+          "name": "SaleTeamID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "StaffID": {
+          "autoincrement": false,
+          "name": "StaffID",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Active": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "Active",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "saleteammembers_SaleTeamMemberID": {
+          "name": "saleteammembers_SaleTeamMemberID",
+          "columns": [
+            "SaleTeamMemberID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_SaleTeamMembers_TenantID": {
+          "name": "IX_SaleTeamMembers_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_SaleTeamMembers_SaleTeams": {
+          "name": "FK_SaleTeamMembers_SaleTeams",
+          "tableFrom": "saleteammembers",
+          "tableTo": "saleteams",
+          "columnsFrom": [
+            "SaleTeamID"
+          ],
+          "columnsTo": [
+            "SaleTeamID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_SaleTeamMembers_Staffs": {
+          "name": "FK_SaleTeamMembers_Staffs",
+          "tableFrom": "saleteammembers",
+          "tableTo": "staffs",
+          "columnsFrom": [
+            "StaffID"
+          ],
+          "columnsTo": [
+            "StaffID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_SaleTeamMembers_Tenants": {
+          "name": "FK_SaleTeamMembers_Tenants",
+          "tableFrom": "saleteammembers",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "saleteamproject": {
+      "name": "saleteamproject",
+      "columns": {
+        "SaleTeamProjectID": {
+          "autoincrement": true,
+          "name": "SaleTeamProjectID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "SaleTeamID": {
+          "autoincrement": false,
+          "name": "SaleTeamID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ProjectID": {
+          "autoincrement": false,
+          "name": "ProjectID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "saleteamproject_SaleTeamProjectID": {
+          "name": "saleteamproject_SaleTeamProjectID",
+          "columns": [
+            "SaleTeamProjectID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_SaleTeamProject_TenantID": {
+          "name": "IX_SaleTeamProject_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_SaleTeamProject_invProjects": {
+          "name": "FK_SaleTeamProject_invProjects",
+          "tableFrom": "saleteamproject",
+          "tableTo": "invprojects",
+          "columnsFrom": [
+            "ProjectID"
+          ],
+          "columnsTo": [
+            "ProjectID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_SaleTeamProject_SaleTeams": {
+          "name": "FK_SaleTeamProject_SaleTeams",
+          "tableFrom": "saleteamproject",
+          "tableTo": "saleteams",
+          "columnsFrom": [
+            "SaleTeamID"
+          ],
+          "columnsTo": [
+            "SaleTeamID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_SaleTeamProject_Tenants": {
+          "name": "FK_SaleTeamProject_Tenants",
+          "tableFrom": "saleteamproject",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "saleteams": {
+      "name": "saleteams",
+      "columns": {
+        "SaleTeamID": {
+          "autoincrement": true,
+          "name": "SaleTeamID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "IsActive": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "IsActive",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "saleteams_SaleTeamID": {
+          "name": "saleteams_SaleTeamID",
+          "columns": [
+            "SaleTeamID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_SaleTeams_TenantID": {
+          "name": "IX_SaleTeams_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_SaleTeams_Tenants": {
+          "name": "FK_SaleTeams_Tenants",
+          "tableFrom": "saleteams",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "staffs": {
+      "name": "staffs",
+      "columns": {
+        "StaffID": {
+          "autoincrement": false,
+          "name": "StaffID",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "AspNetUserID": {
+          "autoincrement": false,
+          "name": "AspNetUserID",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "AliasName": {
+          "autoincrement": false,
+          "name": "AliasName",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Avatar": {
+          "autoincrement": false,
+          "name": "Avatar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Address": {
+          "autoincrement": false,
+          "name": "Address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ContactNo": {
+          "autoincrement": false,
+          "name": "ContactNo",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Mobile": {
+          "autoincrement": false,
+          "name": "Mobile",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Phone": {
+          "autoincrement": false,
+          "name": "Phone",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "DOB": {
+          "autoincrement": false,
+          "name": "DOB",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FatherName": {
+          "autoincrement": false,
+          "name": "FatherName",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "IDCardNo": {
+          "autoincrement": false,
+          "name": "IDCardNo",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Notes": {
+          "autoincrement": false,
+          "name": "Notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TeamLeader": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "TeamLeader",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Organizer": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "Organizer",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Management": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "Management",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "IsActive": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "IsActive",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CreatedAT": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "CreatedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "staffs_StaffID": {
+          "name": "staffs_StaffID",
+          "columns": [
+            "StaffID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_Staffs_TenantID": {
+          "name": "IX_Staffs_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        },
+        "IX_Staffs_AspNetUserID": {
+          "name": "IX_Staffs_AspNetUserID",
+          "columns": [
+            "AspNetUserID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_Staffs_AspNetUsers": {
+          "name": "FK_Staffs_AspNetUsers",
+          "tableFrom": "staffs",
+          "tableTo": "aspnetusers",
+          "columnsFrom": [
+            "AspNetUserID"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "FK_Staffs_Tenants": {
+          "name": "FK_Staffs_Tenants",
+          "tableFrom": "staffs",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "statuses": {
+      "name": "statuses",
+      "columns": {
+        "StatusID": {
+          "autoincrement": true,
+          "name": "StatusID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "TenantID": {
+          "autoincrement": false,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Color": {
+          "autoincrement": false,
+          "name": "Color",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "IsActive": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "IsActive",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "statuses_StatusID": {
+          "name": "statuses_StatusID",
+          "columns": [
+            "StatusID"
+          ]
+        }
+      },
+      "indexes": {
+        "IX_Statuses_TenantID": {
+          "name": "IX_Statuses_TenantID",
+          "columns": [
+            "TenantID"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "FK_Statuses_Tenants": {
+          "name": "FK_Statuses_Tenants",
+          "tableFrom": "statuses",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "TenantID"
+          ],
+          "columnsTo": [
+            "TenantID"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "summary": {
+      "name": "summary",
+      "columns": {
+        "LeadID": {
+          "autoincrement": false,
+          "name": "LeadID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LeadDate": {
+          "autoincrement": false,
+          "name": "LeadDate",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AssignedAT": {
+          "autoincrement": false,
+          "name": "AssignedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AssignedBy": {
+          "autoincrement": false,
+          "name": "AssignedBy",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AssignedTo": {
+          "autoincrement": false,
+          "name": "AssignedTo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "CreatedAT": {
+          "autoincrement": false,
+          "name": "CreatedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "CreatedBy": {
+          "autoincrement": false,
+          "name": "CreatedBy",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Project": {
+          "autoincrement": false,
+          "name": "Project",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Comments": {
+          "autoincrement": false,
+          "name": "Comments",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Client": {
+          "autoincrement": false,
+          "name": "Client",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Contact": {
+          "autoincrement": false,
+          "name": "Contact",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "StatusID": {
+          "autoincrement": false,
+          "name": "StatusID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Status": {
+          "autoincrement": false,
+          "name": "Status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "CommunicationAT": {
+          "autoincrement": false,
+          "name": "CommunicationAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FollowUpOn": {
+          "autoincrement": false,
+          "name": "FollowUpOn",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "summary_LeadID": {
+          "name": "summary_LeadID",
+          "columns": [
+            "LeadID"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "tenants": {
+      "name": "tenants",
+      "columns": {
+        "TenantID": {
+          "autoincrement": true,
+          "name": "TenantID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Name": {
+          "autoincrement": false,
+          "name": "Name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Slug": {
+          "autoincrement": false,
+          "name": "Slug",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LogoURL": {
+          "autoincrement": false,
+          "name": "LogoURL",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Timezone": {
+          "default": "'Asia/Karachi'",
+          "autoincrement": false,
+          "name": "Timezone",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Plan": {
+          "default": "'starter'",
+          "autoincrement": false,
+          "name": "Plan",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "IsActive": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "IsActive",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CreatedAT": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "CreatedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "UpdatedAT": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "UpdatedAT",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "tenants_TenantID": {
+          "name": "tenants_TenantID",
+          "columns": [
+            "TenantID"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "Slug": {
+          "name": "Slug",
+          "columns": [
+            "Slug"
+          ]
+        }
+      },
+      "checkConstraint": {}
+    },
+    "tmp_calllogs": {
+      "name": "tmp_calllogs",
+      "columns": {
+        "CallLogID": {
+          "autoincrement": true,
+          "name": "CallLogID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "InComming": {
+          "autoincrement": false,
+          "name": "InComming",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "LoggedAt": {
+          "autoincrement": false,
+          "name": "LoggedAt",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "CallType": {
+          "autoincrement": false,
+          "name": "CallType",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "CalledAt": {
+          "autoincrement": false,
+          "name": "CalledAt",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Durration": {
+          "autoincrement": false,
+          "name": "Durration",
+          "type": "decimal(18,2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "PhoneIMEI": {
+          "autoincrement": false,
+          "name": "PhoneIMEI",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "SecurityToken": {
+          "autoincrement": false,
+          "name": "SecurityToken",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Sim1IMEI": {
+          "autoincrement": false,
+          "name": "Sim1IMEI",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Sim1Name": {
+          "autoincrement": false,
+          "name": "Sim1Name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Sim2IMEI": {
+          "autoincrement": false,
+          "name": "Sim2IMEI",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Sim2Name": {
+          "autoincrement": false,
+          "name": "Sim2Name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Sim3IMEI": {
+          "autoincrement": false,
+          "name": "Sim3IMEI",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Sim3Name": {
+          "autoincrement": false,
+          "name": "Sim3Name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Sim4IMEI": {
+          "autoincrement": false,
+          "name": "Sim4IMEI",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "InCommingOn": {
+          "autoincrement": false,
+          "name": "InCommingOn",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "tmp_calllogs_CallLogID": {
+          "name": "tmp_calllogs_CallLogID",
+          "columns": [
+            "CallLogID"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "tmp_leads": {
+      "name": "tmp_leads",
+      "columns": {
+        "leadid": {
+          "autoincrement": true,
+          "name": "leadid",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "tmp_leads_leadid": {
+          "name": "tmp_leads_leadid",
+          "columns": [
+            "leadid"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "tmp_projects_20220702_0519": {
+      "name": "tmp_projects_20220702_0519",
+      "columns": {
+        "ProjectID": {
+          "autoincrement": true,
+          "name": "ProjectID",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Description": {
+          "autoincrement": false,
+          "name": "Description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "tmp_projects_20220702_0519_ProjectID": {
+          "name": "tmp_projects_20220702_0519_ProjectID",
+          "columns": [
+            "ProjectID"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "tmpleadids": {
+      "name": "tmpleadids",
+      "columns": {
+        "recordid": {
+          "autoincrement": false,
+          "name": "recordid",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    }
+  },
+  "views": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "tables": {
+      "aspnetusers": {
+        "columns": {
+          "CreatedAT": {
+            "isDefaultAnExpression": true
+          }
+        }
+      },
+      "auditlog": {
+        "columns": {
+          "EventDateUTC": {
+            "isDefaultAnExpression": true
+          }
+        }
+      },
+      "calllogs": {
+        "columns": {
+          "LoggedAt": {
+            "isDefaultAnExpression": true
+          }
+        }
+      },
+      "fbimportleads": {
+        "columns": {
+          "ImportedAT": {
+            "isDefaultAnExpression": true
+          }
+        }
+      },
+      "invinventories": {
+        "columns": {
+          "CreatedAT": {
+            "isDefaultAnExpression": true
+          },
+          "ModifiedAT": {
+            "isDefaultAnExpression": true
+          }
+        }
+      },
+      "invinventorypricelog": {
+        "columns": {
+          "ChangedAT": {
+            "isDefaultAnExpression": true
+          }
+        }
+      },
+      "leadcommunications": {
+        "columns": {
+          "AT": {
+            "isDefaultAnExpression": true
+          }
+        }
+      },
+      "leads": {
+        "columns": {
+          "LeadDate": {
+            "isDefaultAnExpression": true
+          },
+          "CreatedAT": {
+            "isDefaultAnExpression": true
+          },
+          "UpdatedAT": {
+            "isDefaultAnExpression": true
+          }
+        }
+      },
+      "prospects": {
+        "columns": {
+          "CreatedAT": {
+            "isDefaultAnExpression": true
+          },
+          "UpdatedAT": {
+            "isDefaultAnExpression": true
+          }
+        }
+      },
+      "staffs": {
+        "columns": {
+          "CreatedAT": {
+            "isDefaultAnExpression": true
+          }
+        }
+      },
+      "tenants": {
+        "columns": {
+          "CreatedAT": {
+            "isDefaultAnExpression": true
+          },
+          "UpdatedAT": {
+            "isDefaultAnExpression": true
+          }
+        }
+      }
+    },
+    "indexes": {}
+  }
+}
