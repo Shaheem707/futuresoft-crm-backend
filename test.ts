@@ -9,7 +9,6 @@ async function main() {
     } catch (err) {
         console.error("❌ Connection failed:", err);
         process.exit(1);
-        // test
     }
 }
 
