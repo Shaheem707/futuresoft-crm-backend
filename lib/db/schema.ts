@@ -127,6 +127,19 @@ export const auditlog = mysqlTable("auditlog", {
 	primaryKey({ columns: [table.auditLogId], name: "auditlog_AuditLogID"}),
 ]);
 
+export const calls = mysqlTable("calls", {
+  id: int("id").primaryKey().autoincrement(),
+  subject: varchar("subject", { length: 255 }).notNull(), // e.g., "Follow up with Lead"
+  type: mysqlEnum("type", ["Inbound", "Outbound"]).default("Outbound"),
+  startTime: datetime("start_time"),
+  duration: varchar("duration", { length: 50 }), // e.g., "00:15"
+  prospectId: int("prospect_id").references(() => prospects.prospectId), // "Contact Name"
+  dealId: int("deal_id").references(() => deals.dealId), // "Related To"
+  userId: varchar("user_id", { length: 255 }).references(() => aspnetusers.id), // "Call Owner"
+  description: text("description"),
+  tenantId: int("tenant_id").notNull(),
+});
+
 export const calllogs = mysqlTable("calllogs", {
 	callLogId: int("CallLogID").autoincrement().notNull(),
 	tenantId: int("TenantID").notNull().references(() => tenants.tenantId),
