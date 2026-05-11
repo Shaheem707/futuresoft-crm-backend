@@ -692,6 +692,32 @@ export const leadsummary = mysqlTable("leadsummary", {
 	primaryKey({ columns: [table.leadId], name: "leadsummary_LeadID"}),
 ]);
 
+export const meetings = mysqlTable("meetings", {
+  meetingId: int("MeetingID").autoincrement().notNull(),
+  tenantId: int("TenantID").notNull().references(() => tenants.tenantId),
+  prospectId: int("ProspectID").references(() => prospects.prospectId),
+  leadId: int("LeadID").references(() => leads.leadId),
+  staffId: varchar("StaffID", { length: 36 }).references(() => staffs.staffId),
+  title: varchar("Title", { length: 255 }).notNull(),
+  notes: text("Notes"),
+  meetingType: mysqlEnum("MeetingType", ['online', 'on_location']).notNull(),
+  calendlyEventUrl: text("CalendlyEventUrl"),
+  calendlyEventId: varchar("CalendlyEventId", { length: 255 }),
+  address: text("Address"),
+  scheduledAt: datetime("ScheduledAt", { mode: 'string' }),
+  durationMinutes: int("DurationMinutes").default(60),
+  status: mysqlEnum("Status", ['pending', 'confirmed', 'cancelled', 'completed']).default('pending').notNull(),
+  createdAt: datetime("CreatedAt", { mode: 'string' }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+  updatedAt: datetime("UpdatedAt", { mode: 'string' }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+},
+(table) => [
+  index("IX_Meetings_TenantID").on(table.tenantId),
+  index("IX_Meetings_ProspectID").on(table.prospectId),
+  index("IX_Meetings_LeadID").on(table.leadId),
+  index("IX_Meetings_ScheduledAt").on(table.tenantId, table.scheduledAt),
+  primaryKey({ columns: [table.meetingId], name: "meetings_MeetingID" }),
+]);
+
 export const prospectaddress = mysqlTable("prospectaddress", {
 	prospectAddressId: int("ProspectAddressID").autoincrement().notNull(),
 	tenantId: int("TenantID").notNull().references(() => tenants.tenantId),
