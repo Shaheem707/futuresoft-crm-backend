@@ -7,7 +7,7 @@ import {
   staffs,
   statuses,
 } from "../lib/db/schema.js";
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
 import type { Request, Response } from "express";
 import { z } from "zod";
 
@@ -33,6 +33,90 @@ const createLeadSchema = z.object({
   notes: z.string().optional(),
   statusId: z.coerce.number().int().optional(),
 });
+
+const stringOrNumber = z.union([z.string(), z.number()]);
+
+const createBulkLeadSchema = z.object({
+  prospectId: stringOrNumber,
+  // projectId: z.coerce.number().int().optional(),
+  projectId: z.preprocess(
+    (val) => (val === "" || val === null || val === undefined ? null : val),
+    z.coerce.number().int().nullable(),
+  ),
+  leadSourceId: stringOrNumber,
+  leadDate: z.string(),
+  budget: z.coerce.number().default(0),
+  priority: z.enum(["low", "medium", "high"]),
+  // saleTeamId: z.coerce.number().int().optional(),
+  saleTeamId: z.preprocess(
+    (val) => (val === "" || val === undefined ? null : val),
+    z.coerce.number().int().nullable(),
+  ),
+  staffId: stringOrNumber,
+  description: z.string(),
+  notes: z.string().optional(),
+  statusId: z.coerce.number().int().optional(),
+});
+
+const getLeadSourceIdByName = (sourceName: string): number | null => {
+  if (!sourceName) return null;
+
+  // Static mapping for lead sources
+  const leadSourceMap: Record<string, number> = {
+    "Facebook Ad": 1,
+    "TikTok Ad": 2,
+    "Newspaper Ad": 3,
+    "Walk-In": 4,
+    Referral: 5,
+    Website: 6,
+    "Phone Inquiry": 7,
+    Instagram: 8,
+    "YouTube Ad": 9,
+  };
+
+  return leadSourceMap[sourceName] || null;
+};
+
+const getProspectIdByName = async (
+  prospectName: string,
+  tenantId: number,
+): Promise<number | null> => {
+  if (!prospectName) return null;
+
+  const prospect = await db
+    .select({ id: prospects.prospectId })
+    .from(prospects)
+    // .where(
+    //   and(
+    //     eq(prospects.fullName, prospectName),
+    //     eq(prospects.tenantId, tenantId),
+    //   ),
+    // )
+    .where(
+      and(
+        sql`LOWER(${prospects.fullName}) = LOWER(${prospectName})`,
+        eq(prospects.tenantId, tenantId),
+      ),
+    )
+    .limit(1);
+
+  return prospect[0]?.id || null;
+};
+
+const getStaffIdByName = async (
+  staffName: string,
+  tenantId: number,
+): Promise<string | null> => {
+  if (!staffName) return null;
+
+  const staff = await db
+    .select({ staffId: staffs.staffId }) // Use staffId column, not aliasName
+    .from(staffs)
+    .where(and(eq(staffs.aliasName, staffName), eq(staffs.tenantId, tenantId)))
+    .limit(1);
+
+  return staff[0]?.staffId || null;
+};
 
 const leadController = {
   createLead: async (req: Request, res: Response) => {
@@ -168,7 +252,9 @@ const leadController = {
       // 1. Validate Lead ID from URL parameter
       const leadIdParam = req.params.id;
       if (!leadIdParam) {
-        return res.status(400).json({ error: "Lead ID is required in URL parameter" });
+        return res
+          .status(400)
+          .json({ error: "Lead ID is required in URL parameter" });
       }
 
       const leadId = parseInt(String(leadIdParam), 10);
@@ -177,8 +263,8 @@ const leadController = {
       }
 
       // 2. Get Tenant ID from request body (required for multi-tenant SaaS)
-      const tenantId = req.headers['x-tenant-id'];
-      
+      const tenantId = req.headers["x-tenant-id"];
+
       if (!tenantId) {
         return res.status(401).json({ error: "Unauthorized Access" });
       }
@@ -201,26 +287,26 @@ const leadController = {
           leadDate: leads.leadDate,
           createdAt: leads.createdAt,
           updatedAt: leads.updatedAt,
-          
+
           // Status fields
           statusLabel: statuses.description,
           statusColor: statuses.color,
           statusId: leads.statusId,
-          
+
           // Source fields
           sourceName: leadsources.description,
           leadSourceId: leads.leadSourceId,
-          
+
           // Prospect fields
           prospectName: prospects.fullName,
           email: prospects.email,
           phone: prospects.primaryPhone,
           prospectId: leads.prospectId,
-          
+
           // Project fields
           projectName: invprojects.description,
           projectId: leads.projectId,
-          
+
           // Staff fields
           staffName: staffs.aliasName,
           staffId: leads.staffId,
@@ -231,27 +317,21 @@ const leadController = {
         .leftJoin(prospects, eq(leads.prospectId, prospects.prospectId))
         .leftJoin(invprojects, eq(leads.projectId, invprojects.projectId))
         .leftJoin(staffs, eq(leads.staffId, staffs.staffId))
-        .where(
-          and(
-            eq(leads.leadId, leadId),
-            eq(leads.tenantId, tenantIdNum)
-          )
-        )
+        .where(and(eq(leads.leadId, leadId), eq(leads.tenantId, tenantIdNum)))
         .limit(1);
 
       // 4. Check if lead exists and belongs to the tenant
       if (!lead) {
-        return res.status(404).json({ 
-          error: "Lead not found or you don't have access to this lead" 
+        return res.status(404).json({
+          error: "Lead not found or you don't have access to this lead",
         });
       }
 
       // 5. Return the complete lead details
       return res.status(200).json({
         success: true,
-        data: lead
+        data: lead,
       });
-      
     } catch (error) {
       console.error("Error fetching lead by ID:", error);
       return res.status(500).json({ error: "Internal Server Error" });
@@ -337,7 +417,10 @@ const leadController = {
         .update(leads)
         .set(fieldsToUpdate)
         .where(
-          and(eq(leads.leadId, parseInt(String(id), 10)), eq(leads.tenantId, tenantId)),
+          and(
+            eq(leads.leadId, parseInt(String(id), 10)),
+            eq(leads.tenantId, tenantId),
+          ),
         );
       console.log(result);
 
@@ -356,8 +439,8 @@ const leadController = {
     try {
       // 1. Get Tenant ID from request or user session
       // const tenantId = req.body.tenantId || (req as any).user?.tenantId || 5;
-      const tenantId = req.headers['x-tenant-id'];
-      
+      const tenantId = req.headers["x-tenant-id"];
+
       if (!tenantId) {
         return res.status(401).json({ error: "Unauthorized Access" });
       }
@@ -389,6 +472,228 @@ const leadController = {
         message: "Internal server error",
         error: error.message,
       });
+    }
+  },
+  // bulkImportLeads: async (req: Request, res: Response) => {
+  //   try {
+  //     // 1. Validate request body has leads array
+  //     const bulkSchema = z.object({
+  //       leads: z.array(createLeadSchema),
+  //     });
+
+  //     const { leads: leadsData } = bulkSchema.parse(req.body);
+
+  //     // 2. Get TenantID
+  //     const tenantId = req.body.tenantId || (req as any).user?.tenantId || 1;
+
+  //     // 3. Track results
+  //     const results: any[] = [];
+  //     const successfulLeads: any[] = [];
+
+  //     // Helper function to convert ISO to MySQL format
+  //     const toMysqlDateTime = (dateStr: string) =>
+  //       dateStr.replace("T", " ").replace(/\..*|Z/g, "");
+
+  //     // 4. Process each lead
+  //     for (const [index, lead] of leadsData.entries()) {
+  //       try {
+  //         const result = await db.insert(leads).values({
+  //           prospectId: lead.prospectId,
+  //           tenantId: tenantId,
+  //           projectId: lead.projectId ?? null,
+  //           leadSourceId: lead.leadSourceId,
+  //           budget: lead.budget.toString(),
+  //           leadDate: toMysqlDateTime(new Date().toISOString()), // Generate current time
+  //           priority: lead.priority,
+  //           saleTeamId: lead.saleTeamId ?? null,
+  //           staffId: lead.staffId,
+  //           description: lead.description,
+  //           notes: lead.notes || "",
+  //           statusId: lead.statusId || 1,
+  //           createdAt: toMysqlDateTime(new Date().toISOString()),
+  //           updatedAt: toMysqlDateTime(new Date().toISOString()),
+  //         });
+
+  //         successfulLeads.push({
+  //           row: index + 1,
+  //           id: result[0].insertId,
+  //         });
+
+  //         results.push({
+  //           row: index + 1,
+  //           success: true,
+  //           message: "Imported successfully",
+  //           id: result[0].insertId,
+  //         });
+  //       } catch (error) {
+  //         results.push({
+  //           row: index + 1,
+  //           success: false,
+  //           message:
+  //             error instanceof z.ZodError
+  //               ? "Validation failed"
+  //               : (error as Error).message,
+  //           errors: error instanceof z.ZodError ? error.issues : undefined,
+  //         });
+  //       }
+  //     }
+
+  //     // 5. Return response
+  //     return res.status(200).json({
+  //       message: "Bulk import completed",
+  //       total: leadsData.length,
+  //       imported: successfulLeads.length,
+  //       failed: leadsData.length - successfulLeads.length,
+  //       results,
+  //     });
+  //   } catch (error) {
+  //     if (error instanceof z.ZodError) {
+  //       return res.status(400).json({
+  //         error: "Invalid request body",
+  //         details: error.issues,
+  //       });
+  //     }
+
+  //     console.error("Bulk import error:", error);
+  //     return res.status(500).json({ error: "Internal Server Error" });
+  //   }
+  // },
+  bulkImportLeads: async (req: Request, res: Response) => {
+    try {
+      // 1. Validate request body has leads array
+      const bulkSchema = z.object({
+        leads: z.array(createBulkLeadSchema),
+      });
+
+      const { leads: leadsData } = bulkSchema.parse(req.body);
+
+      // 2. Get TenantID
+      const tenantId = req.body.tenantId || (req as any).user?.tenantId || 1;
+
+      // 3. Track results
+      const results: any[] = [];
+      const successfulLeads: any[] = [];
+
+      // Helper function to convert ISO to MySQL format
+      const toMysqlDateTime = (dateStr: string) =>
+        dateStr.replace("T", " ").replace(/\..*|Z/g, "");
+
+      // 4. Process each lead
+      for (const [index, lead] of leadsData.entries()) {
+        try {
+          let prospectId = lead.prospectId;
+          let staffId = lead.staffId;
+          let leadSourceId = lead.leadSourceId;
+
+          // Lookup Prospect ID if name provided (not number)
+          if (lead.prospectId && isNaN(Number(lead.prospectId))) {
+            const prospect = await getProspectIdByName(
+              lead.prospectId.toString(),
+              tenantId,
+            );
+            if (!prospect) {
+              results.push({
+                row: index + 1,
+                success: false,
+                message: `Contact "${lead.prospectId}" not found in tenant ${tenantId}`,
+              });
+              continue;
+            }
+            prospectId = prospect;
+          }
+
+          // Lookup Staff ID if name provided
+          if (typeof lead.staffId === "string") {
+            const staff = await getStaffIdByName(lead.staffId, tenantId);
+            if (!staff) {
+              results.push({
+                row: index + 1,
+                success: false,
+                message: `Staff "${lead.staffId}" not found in tenant ${tenantId}`,
+              });
+              continue;
+            }
+            staffId = staff;
+          }
+
+          // Lookup Lead Source ID if name provided
+          if (lead.leadSourceId && isNaN(Number(lead.leadSourceId))) {
+            const source = getLeadSourceIdByName(lead.leadSourceId.toString());
+            if (!source) {
+              results.push({
+                row: index + 1,
+                success: false,
+                message: `Lead Source "${lead.leadSourceId}" not found`,
+              });
+              continue;
+            }
+            leadSourceId = source;
+          }
+
+          // Insert into database
+          const result = await db.insert(leads).values({
+            prospectId: Number(prospectId),
+            tenantId: tenantId,
+            projectId: lead.projectId ? Number(lead.projectId) : null,
+            leadSourceId: Number(leadSourceId),
+            budget: lead.budget.toString(),
+            leadDate: lead.leadDate
+              ? toMysqlDateTime(new Date(lead.leadDate).toISOString())
+              : toMysqlDateTime(new Date().toISOString()),
+            priority: lead.priority,
+            saleTeamId: lead.saleTeamId ? Number(lead.saleTeamId) : null,
+            staffId: staffId?.toString() || null,
+            description: lead.description,
+            notes: lead.notes || "",
+            statusId: lead.statusId || 1,
+            createdAt: toMysqlDateTime(new Date().toISOString()),
+            updatedAt: toMysqlDateTime(new Date().toISOString()),
+          });
+
+          successfulLeads.push({
+            row: index + 1,
+            id: result[0].insertId,
+          });
+
+          results.push({
+            row: index + 1,
+            success: true,
+            message: "Imported successfully",
+            id: result[0].insertId,
+          });
+        } catch (error) {
+          results.push({
+            row: index + 1,
+            success: false,
+            message:
+              error instanceof z.ZodError
+                ? "Validation failed"
+                : (error as Error).message,
+            errors: error instanceof z.ZodError ? error.issues : undefined,
+          });
+        }
+      }
+
+      console.log(results, successfulLeads);
+
+      // 5. Return response
+      return res.status(200).json({
+        message: "Bulk import completed",
+        total: leadsData.length,
+        imported: successfulLeads.length,
+        failed: leadsData.length - successfulLeads.length,
+        results,
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          error: "Invalid request body",
+          details: error.issues,
+        });
+      }
+
+      console.error("Bulk import error:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
     }
   },
 };
