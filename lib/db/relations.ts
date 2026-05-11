@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm/relations";
-import { aspnetroles, aspnetroleclaims, tenants, aspnetusers, aspnetuserclaims, aspnetuserlogins, aspnetuserroles, aspnetusertokens, assettype, auditlog, calllogs, communicationtypes, contacttypes, crmpermissions, fbadaccounts, fbadpages, fbadforms, invprojects, fbadleads, leadsources, fbimportleads, saleteams, invcities, invareas, invsectors, invblocks, prospects, invclients, invclienttypes, invfeatures, invinventories, invoptions, invphases, invpurposes, invsizes, invstyles, invtypes, invinventoryfeatures, invinventorypricelog, leadcommunications, leads, statuses, staffs, prospectaddress, prospectasset, prospectcontact, saleteammembers, saleteamproject } from "./schema.js";
+import { aspnetroles, aspnetroleclaims, tenants, aspnetusers, aspnetuserclaims, aspnetuserlogins, aspnetuserroles, aspnetusertokens, assettype, auditlog, calllogs, communicationtypes, contacttypes, crmpermissions, fbadaccounts, fbadpages, fbadforms, invprojects, fbadleads, leadsources, fbimportleads, saleteams, invcities, invareas, invsectors, invblocks, prospects, invclients, invclienttypes, invfeatures, invinventories, invoptions, invphases, invpurposes, invsizes, invstyles, invtypes, invinventoryfeatures, invinventorypricelog, leadcommunications, leads, statuses, staffs, prospectaddress, prospectasset, prospectcontact, saleteammembers, saleteamproject, meetings } from "./schema.js";
 
 export const aspnetroleclaimsRelations = relations(aspnetroleclaims, ({one}) => ({
 	aspnetrole: one(aspnetroles, {
@@ -550,6 +550,13 @@ export const leadsRelations = relations(leads, ({one, many}) => ({
 		fields: [leads.tenantId],
 		references: [tenants.tenantId]
 	}),
+}));
+
+export const meetingsRelations = relations(meetings, ({ one }) => ({
+  tenant: one(tenants, { fields: [meetings.tenantId], references: [tenants.tenantId] }),
+  prospect: one(prospects, { fields: [meetings.prospectId], references: [prospects.prospectId] }),
+  lead: one(leads, { fields: [meetings.leadId], references: [leads.leadId] }),
+  staff: one(staffs, { fields: [meetings.staffId], references: [staffs.staffId] }),
 }));
 
 export const statusesRelations = relations(statuses, ({one, many}) => ({
