@@ -1,17 +1,16 @@
+/// <reference path="../types/express.d.ts" />
 import type { Request, Response } from "express";
 import { db } from "../lib/index.js";
 import { meetings, prospects, leads, staffs, aspnetusers } from "../lib/db/schema.js";
 import { eq, and } from "drizzle-orm";
 import { sendEmail } from "../utils/mailer.js";
 
-const TENANT_ID = 5;
-
 const meetingController = {
   // GET /meeting
   getMeeting: async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-
+      const tenantId = req.user!.tenantId;
       const meeting = await db
         .select({
           meetingId: meetings.meetingId,
@@ -36,7 +35,7 @@ const meetingController = {
         .leftJoin(prospects, eq(meetings.prospectId, prospects.prospectId))
         .where(and(
           eq(meetings.meetingId, parseInt(id as string)),
-          eq(meetings.tenantId, TENANT_ID)
+          eq(meetings.tenantId, tenantId)
         ))
         .then((r) => r[0]);
 
@@ -54,6 +53,7 @@ const meetingController = {
   // GET /meetings
   getMeetings: async (req: Request, res: Response) => {
     try {
+      const tenantId = req.user!.tenantId;
       const allMeetings = await db
         .select({
           meetingId: meetings.meetingId,
@@ -73,7 +73,7 @@ const meetingController = {
         })
         .from(meetings)
         .leftJoin(prospects, eq(meetings.prospectId, prospects.prospectId))
-        .where(eq(meetings.tenantId, TENANT_ID));
+        .where(eq(meetings.tenantId, tenantId));
 
       return res.status(200).json(allMeetings);
     } catch (error) {
@@ -85,6 +85,7 @@ const meetingController = {
   // POST /meetings
   createMeeting: async (req: Request, res: Response) => {
     try {
+      const tenantId = req.user!.tenantId; // 🔹 dynamic
       const {
         title,
         meetingType,
@@ -101,7 +102,7 @@ const meetingController = {
       const prospect = await db
         .select()
         .from(prospects)
-        .where(and(eq(prospects.prospectId, prospectId), eq(prospects.tenantId, TENANT_ID)))
+        .where(and(eq(prospects.prospectId, prospectId), eq(prospects.tenantId, tenantId)))
         .then((r) => r[0]);
 
       if (!prospect) {
@@ -110,7 +111,7 @@ const meetingController = {
 
       // Insert meeting
       const [inserted] = await db.insert(meetings).values({
-        tenantId: TENANT_ID,
+        tenantId: tenantId,
         title,
         meetingType,
         prospectId,
@@ -145,7 +146,7 @@ const meetingController = {
         })
         .from(staffs)
         .leftJoin(aspnetusers, eq(staffs.aspNetUserId, aspnetusers.id))
-        .where(and(eq(staffs.staffId, staffId), eq(staffs.tenantId, TENANT_ID)))
+        .where(and(eq(staffs.staffId, staffId), eq(staffs.tenantId, tenantId)))
         .then((r) => r[0])
         : null;
 
@@ -204,13 +205,14 @@ const meetingController = {
   // GET /meetings/:id/confirm  (prospect clicks link in email)
   confirmMeeting: async (req: Request, res: Response) => {
     try {
+      const tenantId = req.user!.tenantId; // 🔹 dynamic
       const { id } = req.params;
 
       const meeting = await db
         .select()
         .from(meetings)
         // .where(eq(meetings.meetingId, parseInt(id as string)))
-        .where(and(eq(meetings.meetingId, parseInt(id as string)), eq(meetings.tenantId, TENANT_ID)))
+        .where(and(eq(meetings.meetingId, parseInt(id as string)), eq(meetings.tenantId, tenantId)))
         .then((r) => r[0]);
 
       if (!meeting) {
@@ -236,7 +238,7 @@ const meetingController = {
           .select()
           .from(prospects)
           // .where(eq(prospects.prospectId, meeting.prospectId))
-          .where(and(eq(prospects.prospectId, meeting.prospectId!), eq(prospects.tenantId, TENANT_ID)))
+          .where(and(eq(prospects.prospectId, meeting.prospectId!), eq(prospects.tenantId, tenantId)))
           .then((r) => r[0])
         : null;
 
@@ -260,7 +262,7 @@ const meetingController = {
           })
           .from(staffs)
           .leftJoin(aspnetusers, eq(staffs.aspNetUserId, aspnetusers.id))
-          .where(and(eq(staffs.staffId, meeting.staffId), eq(staffs.tenantId, TENANT_ID)))
+          .where(and(eq(staffs.staffId, meeting.staffId), eq(staffs.tenantId, tenantId)))
           .then((r) => r[0])
         : null;
 
@@ -293,6 +295,7 @@ const meetingController = {
   // PATCH /meetings/:id
   updateMeeting: async (req: Request, res: Response) => {
     try {
+      const tenantId = req.user!.tenantId; // 🔹 dynamic
       const { id } = req.params;
       const updates = req.body;
 
@@ -303,7 +306,7 @@ const meetingController = {
         .where(
           and(
             eq(meetings.meetingId, parseInt(id as string)),
-            eq(meetings.tenantId, TENANT_ID)
+            eq(meetings.tenantId, tenantId)
           )
         );
 
@@ -317,6 +320,7 @@ const meetingController = {
   // DELETE /meetings/:id
   deleteMeeting: async (req: Request, res: Response) => {
     try {
+      const tenantId = req.user!.tenantId; // 🔹 dynamic
       const { id } = req.params;
 
       await db
@@ -324,7 +328,7 @@ const meetingController = {
         .where(
           and(
             eq(meetings.meetingId, parseInt(id as string)),
-            eq(meetings.tenantId, TENANT_ID)
+            eq(meetings.tenantId, tenantId)
           )
         );
 

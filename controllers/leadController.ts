@@ -1,3 +1,4 @@
+/// <reference path="../types/express.d.ts" />
 import { db } from "../lib/index.js";
 import {
   invprojects,
@@ -86,12 +87,6 @@ const getProspectIdByName = async (
   const prospect = await db
     .select({ id: prospects.prospectId })
     .from(prospects)
-    // .where(
-    //   and(
-    //     eq(prospects.fullName, prospectName),
-    //     eq(prospects.tenantId, tenantId),
-    //   ),
-    // )
     .where(
       and(
         sql`LOWER(${prospects.fullName}) = LOWER(${prospectName})`,
@@ -127,7 +122,7 @@ const leadController = {
       // 2. Get TenantID (Usually from Auth Middleware)
       // If you don't have middleware yet, you might be passing it in the body
       // (but that is less secure!)
-      const tenantId = req.body.tenantId || (req as any).user?.tenantId || 1;
+      const tenantId = req.user!.tenantId;
 
       // Helper function to convert ISO to MySQL format
       const toMysqlDateTime = (dateStr: string) =>
@@ -174,15 +169,15 @@ const leadController = {
       // 1. Identify Tenant (Match your createLead logic)
       // const tenantId = req.body.tenantId || (req as any).user?.tenantId || 5;
       // 1. Extract the string from the query
-      const { tenantId: tenantIdRaw } = req.query;
+      // const { tenantId: tenantIdRaw } = req.query;
+      const tenantIdRaw = req.user!.tenantId;
 
-      // 2. Validate it exists and convert to a number
       if (!tenantIdRaw) {
         return res.status(400).json({ error: "Tenant ID is required" });
       }
 
-      // Convert the raw string/query param to a standard integer
-      const tenantId = parseInt(tenantIdRaw as string, 10);
+      // Convert to string safely using String() constructor
+      const tenantId = parseInt(String(tenantIdRaw), 10);
 
       // 3. Check if the conversion actually resulted in a valid number
       if (isNaN(tenantId)) {
@@ -263,7 +258,8 @@ const leadController = {
       }
 
       // 2. Get Tenant ID from request body (required for multi-tenant SaaS)
-      const tenantId = req.headers["x-tenant-id"];
+      // const tenantId = req.headers["x-tenant-id"];
+      const tenantId = req.user!.tenantId;
 
       if (!tenantId) {
         return res.status(401).json({ error: "Unauthorized Access" });
@@ -376,7 +372,9 @@ const leadController = {
   updateLead: async (req: Request, res: Response) => {
     try {
       // const { id } = req.params; // Get leadId from URL params
-      const tenantId = req.body.tenantId || (req as any).user?.tenantId || 1;
+      // const tenantId = req.body.tenantId || (req as any).user?.tenantId || 1;
+      const tenantId = req.user!.tenantId;
+
       const { id } = req.params;
 
       if (!id) {
@@ -439,13 +437,15 @@ const leadController = {
     try {
       // 1. Get Tenant ID from request or user session
       // const tenantId = req.body.tenantId || (req as any).user?.tenantId || 5;
-      const tenantId = req.headers["x-tenant-id"];
+      const tenantIdRaw = req.user!.tenantId;
 
-      if (!tenantId) {
-        return res.status(401).json({ error: "Unauthorized Access" });
+      if (!tenantIdRaw) {
+        return res.status(400).json({ error: "Tenant ID is required" });
       }
 
-      const tenantIdNum = parseInt(String(tenantId), 10);
+      // Convert to string safely using String() constructor
+      const tenantIdNum = parseInt(String(tenantIdRaw), 10);
+
       if (isNaN(tenantIdNum)) {
         return res.status(400).json({ error: "Invalid Tenant ID format" });
       }
@@ -568,7 +568,7 @@ const leadController = {
       const { leads: leadsData } = bulkSchema.parse(req.body);
 
       // 2. Get TenantID
-      const tenantId = req.body.tenantId || (req as any).user?.tenantId || 1;
+      const tenantId = req.user!.tenantId;
 
       // 3. Track results
       const results: any[] = [];

@@ -138,6 +138,7 @@ export const calls = mysqlTable("calls", {
   userId: varchar("user_id", { length: 255 }).references(() => aspnetusers.id), // "Call Owner"
   description: text("description"),
   tenantId: int("tenant_id").notNull(),
+  status: mysqlEnum("status", ["Scheduled", "Completed", "Missed", "Cancelled"]).default("Scheduled"),
 });
 
 export const calllogs = mysqlTable("calllogs", {
@@ -275,7 +276,7 @@ export const deals = mysqlTable("deals", {
     leadId: int("LeadID").references(() => leads.leadId), // Links back to the original lead
     prospectId: int("ProspectID").notNull().references(() => prospects.prospectId),
     inventoryId: int("InventoryID").references(() => invinventories.inventoryId),
-    staffId: varchar("StaffID", { length: 36 }).references(() => aspnetusers.id),
+    staffId: varchar("StaffID", { length: 36 }).references(() => staffs.staffId),
     
     // Financial Details
     dealValue: decimal("DealValue", { precision: 18, scale: 2 }).default('0.00').notNull(),
@@ -592,6 +593,20 @@ export const invtypes = mysqlTable("invtypes", {
 (table) => [
 	index("IX_invTypes_TenantID").on(table.tenantId),
 	primaryKey({ columns: [table.typeId], name: "invtypes_TypeID"}),
+]);
+
+export const invitations = mysqlTable("invitations", {
+  id: varchar("Id", { length: 191 }).notNull(),
+  tenantId: int("TenantID").notNull().references(() => tenants.tenantId),
+  email: varchar("Email", { length: 256 }),
+  token: varchar("Token", { length: 191 }).notNull(),
+  isUsed: tinyint("IsUsed").default(0).notNull(),
+  expiresAt: datetime("ExpiresAt", { mode: 'string' }).notNull(),
+  createdAt: datetime("CreatedAt", { mode: 'string' }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+},
+(table) => [
+  primaryKey({ columns: [table.id], name: "invitations_Id"}),
+  unique("Token").on(table.token),
 ]);
 
 export const leadcommunications = mysqlTable("leadcommunications", {
